@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { DetailInfo } from "../components/index";
+import { DetailInfo, DetailRecommend } from "../components/index";
 
 function PlaceDetailMain() {
   return (
     <div>
-      <DetailInfo/>
+      <DetailInfo />
     </div>
   )
 }

@@ -1,29 +1,31 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { PlaceDetailMain, RecommendPlaceMain } from "./pages/index";
+import { Routes, Route } from "react-router-dom";
+import { RecommendPlaceMain, PlaceDetailMain } from "./pages/index";
+import Navbar from "../src/components/common/Navbar";
+import Footer from "./components/common/Footer";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path='/recommendMain'
-            element={
-              <RecommendPlaceMain
-                latitude={36.68489220533342}
-                longitude={127.46794555678892}
-              />
-            }
-          />
-          <Route
-            path='/placeDetail'
-            element={
-              <PlaceDetailMain/>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/recommendMain"
+          element={
+            <RecommendPlaceMain
+              latitude={36.68489220533342}
+              longitude={127.46794555678892}
+            />
+          }
+        />
+        <Route
+          path='/place/1'
+          element={
+            <PlaceDetailMain/>
+          }
+        />
+      </Routes>
+      <Footer />
     </>
   );
 }

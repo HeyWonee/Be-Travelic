@@ -1,5 +1,6 @@
 package beTravelic.demo;
 
+import beTravelic.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,5 +10,7 @@ class DemoApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+
+
 
 }

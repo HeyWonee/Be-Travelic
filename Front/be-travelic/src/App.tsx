@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { RecommendPlaceMain } from "./pages/index";
+import { PlaceDetailMain, RecommendPlaceMain } from "./pages/index";
 
 function App() {
   return (
@@ -14,6 +14,12 @@ function App() {
                 latitude={36.68489220533342}
                 longitude={127.46794555678892}
               />
+            }
+          />
+          <Route
+            path='/placeDetail'
+            element={
+              <PlaceDetailMain/>
             }
           />
         </Routes>

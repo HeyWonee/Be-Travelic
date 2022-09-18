@@ -1,6 +1,4 @@
 package beTravelic.demo.global.config;
-
-import com.sun.org.apache.bcel.internal.generic.PUSH;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,4 +22,5 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable()
                 .headers().frameOptions().disable();
     }
+
 }

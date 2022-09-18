@@ -5,6 +5,7 @@ import Navbar from "../src/components/common/Navbar";
 import Footer from "./components/common/Footer";
 import OnBoard from "./pages/OnBoard";
 import Survey from "./pages/Survey";
+import SNS from "./pages/SNS"
 
 function App() {
   return (
@@ -26,6 +27,12 @@ function App() {
           path='/place/:id'
           element={
             <PlaceDetailMain />
+          }
+        />
+        <Route
+          path='/sns'
+          element={
+            <SNS />
           }
         />
       </Routes>

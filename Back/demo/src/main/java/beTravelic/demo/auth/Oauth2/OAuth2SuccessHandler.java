@@ -5,6 +5,7 @@ import beTravelic.demo.auth.dto.UserRequestDto;
 import beTravelic.demo.auth.jwt.TokenProvider;
 import beTravelic.demo.auth.repository.RefreshTokenRepository;
 import beTravelic.demo.auth.repository.UserRepository;
+import beTravelic.demo.domain.RefreshToken;
 import beTravelic.demo.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,7 +58,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         RefreshToken refreshToken = RefreshToken.builder()
                 .key(authentication.getName())
-                .value(tokenDto.getRefr())
+                .value(tokenDto.getRefreshToken())
                 .build();
 
         refreshTokenRepository.save(refreshToken);

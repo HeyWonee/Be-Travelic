@@ -1,10 +1,12 @@
 package beTravelic.demo.global.util.jwt;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @Slf4j
+@Getter
 public class SecurityUtil {
 
     private SecurityUtil() { }

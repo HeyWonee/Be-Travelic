@@ -41,7 +41,7 @@ public class UserService {
     @Transactional(readOnly=true)
     public User getMyInfo() {
         // SecurityUtil.getCurrentUserId() 여기서 UserId를 받아오기 때문에
-        return userRepository.findById(SecurityUtil.getCurrentUserId())
+        return userRepository.findById(SecurityUtil.getCurrentId())
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
 
@@ -73,35 +73,9 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public boolean checkPw(String password) {
-        User user = em.find(User.class, SecurityUtil.getCurrentUserId());
-
-        return  passwordEncoder.matches(password, user.getPassword());
-    }
-
-    @Transactional
-    public void changePw(UserRequestDto userRequestDto) {
-        User user = em.createQuery("SELECT u FROM User u WHERE u.email like :email", User.class).setParameter("email", userRequestDto.getEmail()).getSingleResult();
-        User changeUser = em.find(User.class, user.getUserSeq());
-        changeUser.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
-        //return user;
-
-    }
-
-    @Transactional(readOnly = true)
     public User userInformation(String nickname) {
         return userRepository.findByNickname(nickname)
                 .orElseThrow(() -> new NoSuchElementException(nickname));
-    }
-
-    @Transactional(readOnly = true)
-    public List findByNickname(String nick) {
-        try {
-            return em.createQuery("SELECT u FROM User u WHERE u.nickname LIKE CONCAT('%', :nick, '%')", User.class)
-                    .setParameter("nick", nick).getResultList();
-        } catch (NoResultException e) {
-            throw new NoResultException();
-        }
     }
 
     @Transactional(readOnly = true)
@@ -109,10 +83,5 @@ public class UserService {
         return  em.createQuery("SELECT u.nickname, u.winCount, u.loseCount, u.rankPoint, u.isRedUser, u.nowRoomSeq FROM User u WHERE u.isLogin = true").getResultList();
     }
 
-    @Transactional
-    public void statusChange(String status) {
-        User user = em.find(User.class, SecurityUtil.getCurrentUserId());
-        user.setUserStatus(UserStatus.valueOf(status));
-    }
 }
 

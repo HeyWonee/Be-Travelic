@@ -3,11 +3,13 @@ package beTravelic.demo.auth.dto;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
 public class TokenDto {
     @ApiParam(value = "토큰타입", required = true)
     private String grantType;

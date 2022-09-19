@@ -44,11 +44,16 @@ public class KakaoUserController {
 
         }
         String email = userRequestDto.getEmail();
-        System.out.println(email);
+        String age_range = userRequestDto.getAge_range();
+        String gender = userRequestDto.getGender();
+
         Optional<User> user = userRepository.findByEmail(email);
 
         if (!userRepository.existsByEmail(userRequestDto.getEmail())){
+            userRequestDto.setEmail(email);
             userRequestDto.setPw(email);
+            userRequestDto.setGender(gender);
+            userRequestDto.setAge_range(age_range);
             User users = userRequestDto.toOauthUser(passwordEncoder);
             userRepository.save(users);
         }
@@ -56,6 +61,8 @@ public class KakaoUserController {
         String password = em.createQuery("SELECT u FROM User u WHERE u.email like :email", User.class).setParameter("email", email).getSingleResult().getPassword();
         userRequestDto2.setEmail(email);
         userRequestDto2.setPw(email);
+        userRequestDto2.setGender(gender);
+        userRequestDto2.setAge_range(age_range);
         UsernamePasswordAuthenticationToken authenticationToken = userRequestDto2.toAuthentication();
         Authentication authentication_user = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         System.out.println(authentication_user);

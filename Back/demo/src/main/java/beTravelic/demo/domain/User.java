@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
 public class User {
 
     @Id @GeneratedValue
@@ -18,9 +19,7 @@ public class User {
     private String email;
 
     private String nickname;
-
     private String age_range;
-
     private String gender;
     private String pw;
 

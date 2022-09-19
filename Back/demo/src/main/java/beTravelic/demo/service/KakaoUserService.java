@@ -6,13 +6,14 @@
 //import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.JsonNode;
 //import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.databind.json.JsonMapper;
 //import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 //import org.springframework.http.HttpEntity;
 //import org.springframework.http.HttpHeaders;
 //import org.springframework.http.HttpMethod;
 //import org.springframework.http.ResponseEntity;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.util.LinkedMultiValueMap;
 //import org.springframework.util.MultiValueMap;
 //import org.springframework.web.client.RestTemplate;
@@ -107,14 +108,21 @@
 //        User kakaoUser = (User) userRepository.findByUserEmail(kakaoEmail)
 //                .orElse(null);
 //
-////        if (kakaoUser == null) {
-////            // 회원가입
-////            String password = UUID.randomUUID().toString();
-////            String encodedPassword = passwordEncoder.encode(password);
-////            kakaoUser = new User(kakaoEmail, age_range, gender, encodedPassword);
-////            userRepository.save(kakaoUser);
-////        }
+//        if (kakaoUser == null) {
+//            // 회원가입
+//            String password = UUID.randomUUID().toString();
+//            String encodedPassword = passwordEncoder.encode(password);
+//            kakaoUser = new User(kakaoEmail, age_range, gender, encodedPassword);
+//            userRepository.save(kakaoUser);
+//        }
 //        return kakaoUser;
+//    }
+//    // 강제 로그인 처리
+//    private Authentication forceLogin(User kakaoUser) {
+//        UserDetails userDetails = new UserServiceImpl(kakaoUser);
+//                = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        return authentication;
 //    }
 //    // response header에 jwt 토큰 추가
 //    private void kakaoUserAuthorizationInput(Authentication authentication, HttpServletResponse response) {

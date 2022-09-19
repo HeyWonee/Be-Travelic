@@ -9,20 +9,31 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SocialUserInfoDto {
+public class UserDto {
     private Long id;
     private String email;
     private String age_range;
     private String gender;
-    private String access_token;
+
+    private String pw;
+
 
     @Builder
-    public SocialUserInfoDto(Long id, String email, String gender, String age_range, String access_token){
+    public UserDto(Long id, String email, String gender, String age_range, String pw){
         this.id = id;
+        this.pw = pw;
         this.email = email;
         this.gender = gender;
         this.age_range = age_range;
-        this.access_token = access_token;
+    }
+    public User toEntity(){
+        return User.builder()
+                .id(id)
+                .pw(pw)
+                .gender(gender)
+                .email(email)
+                .age_range(age_range)
+                .build();
     }
 
 }

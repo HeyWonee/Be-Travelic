@@ -19,11 +19,19 @@ public class User {
 
     private String nickname;
 
-//    private int age_range;
-//
-//    private String gender;
+    private String age_range;
+
+    private String gender;
+    private String pw;
 
     @OneToMany(mappedBy = "user")
     private List<UserKeyword> keyword = new ArrayList<>();
 
+    @Builder
+    public User(Long id, String email, String gender, String age_range, String pw){
+        this.pw = pw;
+        this.email = email;
+        this.gender = gender;
+        this.age_range = age_range;
+    }
 }

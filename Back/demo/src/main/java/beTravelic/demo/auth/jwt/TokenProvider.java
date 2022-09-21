@@ -23,9 +23,8 @@ import java.util.stream.Collectors;
 
 // 토큰을 생성하고 검증하는 클래스
 // 해당 컴포넌트는 필터클래스에서 사전 검증을 거침
-@Component
 @Slf4j
-@Qualifier("TokenProvider")
+@Component
 public class TokenProvider {
     private String secretKey = "webfirewood";
 

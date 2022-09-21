@@ -26,13 +26,6 @@ public class UserController {
         return ResponseEntity.ok(UserInfoResponseDto.convert(userService.getMyInfo()));
     }
 
-    //유저 상세 조회 filter 기능
-    @PostMapping("/admin/findUser")
-    @ApiOperation(value = "관리자가 유저상세조회", notes = "유저 이메일을 통해서 상세 조회", response = UserInfoResponseDto.class)
-    public ResponseEntity<User> getUserInfo(@ApiParam(value = "email", example = "ssafy@naver.com") @RequestBody String email) {
-        return ResponseEntity.ok(userService.getUserInfo(email));
-    }
-
     @PostMapping("/checkEmail")
     @ApiOperation(value = "이메일중복확인", notes="DB에 유저 이메일이 있는지 확인", response = boolean.class)
     public boolean checkEmail(@ApiParam(value = "email", example = "ssafy@naver.com") @RequestBody String email) {
@@ -57,34 +50,14 @@ public class UserController {
         userService.deleteUser();
     }
 
-    @PostMapping("/user/checkPw")
-    @ApiOperation(value = "비밀번호확인", notes = "입력받은 비밀번호와 현재 유저의 비밀번호가 같은지 확인", response = boolean.class)
-    public boolean checkPw(@RequestBody String password) {
-        return userService.checkPw(password);
-    }
-
-    @PostMapping("/changePw")
-    @ApiOperation(value = "비밀번호변경", notes = "입력받은 비밀번호로 변경하기", response = void.class)
-    public void changePw(@ApiParam(value = "새비밀번호", example = "ssafy1!") @RequestBody UserRequestDto userRequestDto) {
-        userService.changePw(userRequestDto);
-    }
-
     @PostMapping("/user/findUserByNickname")
     @ApiOperation(value = "닉네임으로 유저정보 제공", notes = "유저 정보 제공하기", response = UserInfoResponseDto.class)
     public ResponseEntity<UserInfoResponseDto> userInformation(@ApiParam(value = "nickname", example = "ssafy1!") @RequestBody String nickname) {
         return ResponseEntity.ok(UserInfoResponseDto.convert(userService.userInformation(nickname)));
     }
 
-    @GetMapping("/user/isLogin")
-    @ApiOperation(value = "현재 로그인 되있는 유저 정보 제공", notes = "현재 로그인 되있는 유정 정보 제공하기", response = UserInfoResponseDto.class)
-    public ResponseEntity<?> isLoginUser() {
-        return ResponseEntity.ok(userService.isLoginUser());
-    }
 
-    @PostMapping("/user/findUserByNicknameElement")
-    @ApiOperation(value = "닉네임을 글자를 통해서 유저 정보 제공", notes = "유저 정보 제공하기", response = UserInfoResponseDto.class)
-    public ResponseEntity<?> findBynickname(@ApiParam(value = "String", example = "이") @RequestBody String nickname) {
-        return ResponseEntity.ok(userService.findByNickname(nickname));
-    }
+
+
 
 }

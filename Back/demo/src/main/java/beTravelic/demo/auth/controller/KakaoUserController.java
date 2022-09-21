@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
@@ -30,7 +31,6 @@ public class KakaoUserController {
     private final PasswordEncoder passwordEncoder;
     private final EntityManager em;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
     private final TokenProvider tokenProvider;
 
     @GetMapping("/oauth/callback/{provider}")

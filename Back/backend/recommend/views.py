@@ -63,6 +63,8 @@ place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
 place_review_data = pd.merge(place_data, review_data, on='place_id')
 place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
 user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
+Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
+
 
 
 @api_view(['GET'])

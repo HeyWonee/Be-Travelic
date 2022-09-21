@@ -1,23 +1,37 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { RecommendPlaceMain } from "./pages/index";
+import { Routes, Route } from "react-router-dom";
+import { RecommendPlaceMain, PlaceDetailMain } from "./pages/index";
+import Navbar from "../src/components/common/Navbar";
+import Footer from "./components/common/Footer";
+// import OnBoard from "./pages/OnBoard";
+import MyPage from "./pages/MyPage";
+import Survey from "./pages/Survey";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path='/recommendMain'
-            element={
-              <RecommendPlaceMain
-                latitude={36.68489220533342}
-                longitude={127.46794555678892}
-              />
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      {/* <OnBoard /> */}
+      {/* <Survey /> */}
+      <Navbar />
+      <Routes>
+        <Route path="/mypage" element={<MyPage />} />
+        <Route
+          path='/recommendMain'
+          element={
+            <RecommendPlaceMain
+              latitude={36.271610662143146}
+              longitude={129.29439396586432}
+            />
+          }
+        />
+        <Route
+          path='/place/:id'
+          element={
+            <PlaceDetailMain />
+          }
+        />
+      </Routes>
+      <Footer />
     </>
   );
 }

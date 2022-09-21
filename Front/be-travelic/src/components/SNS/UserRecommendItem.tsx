@@ -1,4 +1,4 @@
-import "../css/SNS.css"
+import "../css/UserRecommend.css"
 import { Link } from "react-router-dom";
 
 interface UserRecommend {
@@ -10,9 +10,9 @@ function UserRecommendItem( props: UserRecommend ) {
     const { userid, nickname } = props
     return(
       <div id="UserRecommendCardItem">
-          <p className="flex items-center mb-2 m-3">
+          <p className="flex items-center m-4">
               <a className="inline-flex items-center">
-                  <img alt="ProfileImage" src="https://dummyimage.com/103x103" className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center" />
+                  <img alt="ProfileImage" src="https://dummyimage.com/103x103" className="w-8 h-8 rounded-full object-cover object-center" />
                       <Link to={`/mypage`}>
                           <span className="flex-grow flex flex-col pl-3">
                               <span className="title-font font-medium text-gray-900">{nickname}</span>

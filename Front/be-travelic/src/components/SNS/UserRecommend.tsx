@@ -1,5 +1,5 @@
 import UserRecommendItem from "./UserRecommendItem"
-import "../css/SNS.css"
+import "../css/UserRecommend.css"
 
 const UserRecommendData = [
     {
@@ -31,10 +31,10 @@ const UserRecommendData = [
 
 function UserRecommend() {
     return (
-        <div id="UserRecommend" className="p-4 mt-20 mr-10">
+        <div id="UserRecommend" className="mt-20">
           <div id="UserRecommendCard" className="flex flex-col">
               <div id="UserRecommendCardHeader">
-                  <h2 className="text-ml m-5 text-center text-gray-900">다른 사용자 추천 🚀</h2>
+                  <h2 className="m-4 text-center text-gray-900">다른 사용자 추천 🚀</h2>
               </div>
               {UserRecommendData.map((user) => (
               <div key='{user.userid}'>

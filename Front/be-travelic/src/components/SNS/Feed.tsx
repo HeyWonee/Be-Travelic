@@ -1,4 +1,4 @@
-import "../css/SNS.css"
+import "../css/Feed.css"
 import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa'
 import { Link } from "react-router-dom";
 
@@ -17,35 +17,38 @@ function Feed( props: Feed) {
   const { feedid, nickname, date, place, imgUrl, likes, comments, contents } = props
 
   return (
-    <div id="FeedCard">
-      <div id="FeedCardHeader" className="flex items-center p-4">
-        <img
-          alt="team" className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"
-          src={imgUrl}
-        />
-        <div className="flex-grow">
-          <Link to={`/mypage`}>
-          <h2 className="title-font font-medium ml-3">{nickname}</h2>
-          {/* 위치 여기다 넣을지 고민중 */}
-          {/* <p className="text-gray-500">UI Designer</p> */}
-          </Link>
+    <div id="FeedCard" className="mb-10">
+      <div id="FeedCardHeader">
+        <div className="flex items-center m-5">
+          <img
+            alt="" className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"
+            src="https://dummyimage.com/103x103"
+          />
+          <div className="flex-grow">
+            <Link to={`/mypage`}>
+            <h2 className="title-font font-medium ml-3">{nickname}</h2>
+            {/* 위치 여기다 넣을지 고민중 */}
+            {/* <p className="text-gray-500">{place}</p> */}
+            </Link>
+          </div>
+
+          <FaMapMarkerAlt id="MarkIcon"/>        
+          <h2 className="ml-1 mr-5">{place}</h2>
+
+          <FaRegCalendarAlt id="CalendarIcon" />
+          <h2 className="ml-1 mr-3">{date}</h2>
         </div>
-
-        <FaMapMarkerAlt id="MarkIcon"/>        
-        <h2 className="ml-1 mr-5">{place}</h2>
-
-        <FaRegCalendarAlt id="CalendarIcon" />
-        <h2 className="ml-1 mr-3">{date}</h2>
       </div>
 
       <div id="FeedCardBody">
-        <img
-          id="FeedImage"
-          className=""
-          alt="SNSimage"
-          src=""
-        />
-
+        <div id="FeedImageContainer">
+          <img
+            id="FeedImage"
+            className=""
+            alt="SNSimage"
+            src="https://dummyimage.com/720x600"
+          />
+        </div>
         {/* 좋아요 버튼 => 수정 예정 */}
         <div className="flex">
           <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">

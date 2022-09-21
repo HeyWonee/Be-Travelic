@@ -1,4 +1,5 @@
 import { Feed, UserRecommend } from "../components/index";
+import "./css/SNS.css";
 
 const FeedData = [
   {
@@ -25,24 +26,29 @@ const FeedData = [
 
 function SNS() {
   return (
-      <div className="container flex flex-row">
-        <div id="Feed" className="container flex flex-col py-24 item-center justify-content">
-          {FeedData.map((feed) => (
-              <div id="FeedContainer" key='{feed.feedid}' className="item-center justify-content">
-                <Feed
-                feedid={feed.feedid}
-                nickname={feed.nickname}
-                date={feed.date}
-                place={feed.place}
-                imgUrl={feed.imgUrl}
-                likes={feed.likes}
-                comments={feed.comments}
-                contents={feed.contents}
-              />
-              </div>
-          ))}
+      <div id="SNS" className="flex flex-row">
+        <div className="FeedContainer">
+          <div id="Feed" className="flex flex-col mt-20 mr-10">
+            {FeedData.map((feed) => (
+                <div id="FeedContainer" key='{feed.feedid}' className="item-center justify-content">
+                  <Feed
+                  feedid={feed.feedid}
+                  nickname={feed.nickname}
+                  date={feed.date}
+                  place={feed.place}
+                  imgUrl={feed.imgUrl}
+                  likes={feed.likes}
+                  comments={feed.comments}
+                  contents={feed.contents}
+                />
+                </div>
+            ))}
+          </div>
         </div>
-        <UserRecommend/>
+
+        <div id="UserRecommend">
+          <UserRecommend/>
+        </div>
       </div>
   )
 }

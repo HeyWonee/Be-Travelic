@@ -7,6 +7,7 @@ import Footer from "./components/common/Footer";
 import MyPage from "./pages/MyPage";
 import Survey from "./pages/Survey";
 import SNS from "./pages/SNS"
+import OnBoard from "./pages/OnBoard";
 
 function App() {
   return (

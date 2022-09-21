@@ -1,27 +1,52 @@
+import UserRecommendItem from "./UserRecommendItem"
+import "../css/SNS.css"
+
+const UserRecommendData = [
+    {
+      userid: 1,
+      nickname: '혜원'
+    },
+    {
+      userid: 2,
+      nickname: '지명'
+    },
+    {
+      userid: 3,
+      nickname: '호형'
+    },
+    {
+      userid: 4,
+      nickname: '수영'
+    },
+    {
+      userid: 5,
+      nickname: '윤해'
+    },
+    {
+      userid: 6,
+      nickname: '채현'
+    }
+  ]
+
+
 function UserRecommend() {
-    return(
-            <div className="p-4 xl:w-1/4 md:w-1/2">
-                <div className="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden">
-                    <h2 className="text-ml text-gray-900 pb-4 mb-4 border-b border-gray-200 leading-none">다른 사용자 추천</h2>
-                    <p className="flex items-center text-gray-600 mb-2">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                                <path d="M20 6L9 17l-5-5"></path>
-                            </svg>
-                        </span>
-
-                        <a className="inline-flex items-center">
-                            <img alt="blog" src="https://dummyimage.com/103x103" className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center" />
-                            <span className="flex-grow flex flex-col pl-3">
-                                <span className="title-font font-medium text-gray-900">Alper Kamu</span>
-                            </span>
-                        </a>
-
-                        <button className="flex ml-auto bg-indigo-500 border-0 py-2 px-6 focus:outline-none rounded">팔로우</button>
-                    </p>
-                </div>
-            </div>
+    return (
+        <div id="UserRecommend" className="p-4 mt-20 mr-10">
+          <div id="UserRecommendCard" className="flex flex-col">
+              <div id="UserRecommendCardHeader">
+                  <h2 className="text-ml m-5 text-center text-gray-900">다른 사용자 추천 🚀</h2>
+              </div>
+              {UserRecommendData.map((user) => (
+              <div key='{user.userid}'>
+                  <UserRecommendItem
+                      userid={user.userid}
+                      nickname={user.nickname}
+                  />
+              </div>
+              ))}
+          </div>                    
+        </div>
     )
 }
 
-export default UserRecommend;
+export default UserRecommend

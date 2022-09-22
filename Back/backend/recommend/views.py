@@ -20,6 +20,50 @@ from .serializers.recommenduser import RecommendUserSerializer
 
 # Create your views here.
 
+from konlpy.tag import Okt
+from numpy import dot
+from numpy.linalg import norm
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.decomposition import TruncatedSVD
+import pandas as pd
+import numpy as np
+import pymysql
+from eunjeon import Mecab
+
+
+conn = pymysql.connect(host='localhost',
+                        user='root',
+                        password='ssafyd205',
+                        db='D205_2',
+                        charset='utf8')
+
+
+
+
+user_table = "SELECT * FROM user"
+place_table = "SELECT * FROM place"
+category_table = "SELECT * FROM place_category"
+place_keywords_table = "SELECT * FROM place_keywords"
+review_table = "SELECT * FROM review"
+all_keywords_table = "SELECT * FROM keywords"
+
+
+user_data = pd.read_sql_query(user_table, conn)
+place_data = pd.read_sql_query(place_table, conn)
+category_data = pd.read_sql_query(category_table, conn)
+keywords_data = pd.read_sql_query(place_keywords_table, conn)
+review_data = pd.read_sql_query(review_table, conn)
+all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
+
+user_review_data = pd.merge(user_data, review_data, on='user_id')
+place_category_data = pd.merge(place_data, category_data, on='category')
+place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
+place_review_data = pd.merge(place_data, review_data, on='place_id')
+place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
+user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
+Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
 
 from numpy import dot
 from numpy.linalg import norm
@@ -307,9 +351,9 @@ def another_recommend(request):
 
 @api_view(['GET'])
 def sns_recommend(request):
-    #current_user_id= request.get('current_user_id')
-    current_user_id= 3 
-    def sns_recommendations(current_user_id):
+    #selected_user_id= request.get('selected_user_id')
+    selected_user_id= 3 
+    def sns_recommendations(selected_user_id):
 
         
 
@@ -327,37 +371,16 @@ def sns_recommend(request):
     
         users = place_user_score.columns
         users_list = list(users)
-        coffey_hands = users_list.index(current_user_id)
+        coffey_hands = users_list.index(selected_user_id)
         corr_coffey_hands = corr[coffey_hands]
         lst= list(users[(corr_coffey_hands>=0.9)] )
 
-
-
-
-
-
-
         user_review_list=[]
-        following_list=[]
-        for i in range(len(follow_data)):
-            if follow_data['follower_user_id'][i]==current_user_id:
-                following_list.append(follow_data['following_user_id'][i])
-
-        follow_feed=[]
-        for i in following_list:
-            for j in range(len(user_review_place_data)):
-                if i== user_review_place_data['user_id'][j]:
-                    follow_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
-        set_follow_feed = set(follow_feed)
-        set_follow_feed2 = list(set_follow_feed)
-
-        rec_feed=[]
         for i in lst:
-            if i != current_user_id and i not in following_list:
-                rec_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
-        set_rec_feed = set(rec_feed)
-        set_rec_feed2 = list(set_rec_feed)
-        user_review_list = set_follow_feed2 + set_rec_feed2
+            if i != selected_user_id:
+                user_review_list.append(tuple([i,user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
+
+
         df=pd.DataFrame(user_review_list,columns=['recommend_user_id','place_id','user_id','review_id','contents','image_x','image_y','nickname'])
 
         def mysql_save(user_review_list):
@@ -369,7 +392,7 @@ def sns_recommend(request):
             cursor=conn.cursor()
             sql = "truncate recommenduser"
             cursor.execute(sql)
-   
+            
 
             #cursor=conn.cursor()
             sql="insert into recommenduser(recommend_user_id,place_id,user_id,review_id,contents,image_x,image_y,nickname) values(%s,%s,%s,%s,%s,%s,%s,%s)"
@@ -378,9 +401,10 @@ def sns_recommend(request):
             conn.close()
         mysql_save(user_review_list)
 
-    sns_recommendations(current_user_id)
+    sns_recommendations(selected_user_id)
 
 
     if request.method=='GET':
         users = get_list_or_404(RecommendUser)
         serializer = RecommendUserSerializer(users,many=True)
+        return Response(serializer.data)

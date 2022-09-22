@@ -18,7 +18,7 @@ conn = pymysql.connect(host='localhost',
 
 
 
-follow_table = "SELECT * FROM follow"
+
 user_table = "SELECT * FROM user"
 place_table = "SELECT * FROM place"
 category_table = "SELECT * FROM place_category"
@@ -26,7 +26,7 @@ place_keywords_table = "SELECT * FROM place_keywords"
 review_table = "SELECT * FROM review"
 all_keywords_table = "SELECT * FROM keywords"
 
-follow_data = pd.read_sql_query(follow_table, conn)
+
 user_data = pd.read_sql_query(user_table, conn)
 place_data = pd.read_sql_query(place_table, conn)
 category_data = pd.read_sql_query(category_table, conn)
@@ -42,8 +42,8 @@ place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on=
 user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
 
 
-current_user_id= 3 
-def sns_recommendations(current_user_id):
+selected_user_id= 3 
+def sns_recommendations(selected_user_id):
 
     
 
@@ -65,32 +65,13 @@ def sns_recommendations(current_user_id):
     corr_coffey_hands = corr[coffey_hands]
     lst= list(users[(corr_coffey_hands>=0.9)] )
 
-    print(user_review_place_data['category'])
-    #print(user_review_place_data)
-    user_review_list=[]
-    following_list=[]
-    for i in range(len(follow_data)):
-        if follow_data['follower_user_id'][i]==current_user_id:
-            following_list.append(follow_data['following_user_id'][i])
-
-    follow_feed=[]
-    for i in following_list:
-        for j in range(len(user_review_place_data)):
-            if i== user_review_place_data['user_id'][j]:
-                follow_feed.append(tuple([0,user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
-    set_follow_feed = set(follow_feed)
-    set_follow_feed2 = list(set_follow_feed)
-
-    rec_feed=[]
+    ans=[]
     for i in lst:
-        if i != current_user_id and i not in following_list:
-            rec_feed.append(tuple([0,user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
-    set_rec_feed = set(rec_feed)
-    set_rec_feed2 = list(set_rec_feed)
-    user_review_list = set_follow_feed2 + set_rec_feed2
-    #print(user_review_list)
-    
-sns_recommendations(current_user_id)
+        if i != selected_user_id:
+            ans.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
+    print(ans)
+
+print(sns_recommendations(selected_user_id))
 
 
 ################################################################################################

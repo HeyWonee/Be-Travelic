@@ -13,6 +13,7 @@ urlpatterns = [
     #path('places/',views.get_places, name="get_places"),
     path('v1/place_recommend/',views.place_recommend, name="place_recommendations"),
     path('v1/sns_recommend/', views.sns_recommend, name="sns_recommendations"),
+    #path('v1/sns_user_recommend/', views.sns_user_recommend, name="sns_user_recommendations"),
     path('v1/another_recommend/', views.another_recommend, name="another_recommendations"),
     #path('recommend_place/', views.get_recommend_places, name="recommend_places"),
 ]

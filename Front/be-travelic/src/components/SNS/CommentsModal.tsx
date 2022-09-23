@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState  } from 'react';
 import '../css/CommentsModal.css';
+import { Link } from "react-router-dom";
 
 interface props {
   open: boolean;
@@ -12,20 +13,21 @@ const CommentsModal = (props: any) => {
   const { open, close } = props;
 
   // 댓글
-  const [review, setReview] = useState('졸려');
-  const [reviewArray, setReviewArray] = useState([
-    { id: `수영`, review: review },
+  const [comment, setReview] = useState('댓글내용');
+  const [Comments, setReviewArray] = useState([
+    { id: `닉네임`, imgUrl: '', comment: comment },
   ]);
 
   const handleReviewInput = (event: any) => {
     setReview(event.target.value);
   };
+
   const handleTotalEnter = (event: any) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      const repoArray = [...reviewArray];
+      const repoArray = [...Comments];
       if (event.target.value !== '')
-        repoArray.push({ id: '익명', review: review });
+        repoArray.push({ id: '', imgUrl: '', comment: comment });
       setReviewArray(repoArray);
       event.target.value = '';
     }
@@ -33,35 +35,57 @@ const CommentsModal = (props: any) => {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-    <div id="CommentsModal" className={open ? 'openModal modal' : 'modal'}>
+    <div id="CommentModal" className={open ? 'openModal modal' : 'modal'}>
       {open ? (
         <section>
+          {/* 닫기 버튼 */}
           <header>
             <button className="close" onClick={close}>
               &times;
             </button>
           </header>
-          <main>{props.children}</main>
-          {reviewArray.map(data => (
-                    <li key={data.id}>
-                      <span >{data.id}</span>
-                      <span className="text"> {data.review}</span>
-                    </li>
-                  ))}
-          <input
-                  className="comment-input"
-                  type="text"
-                  placeholder="댓글를 입력해주세요."
-                  onKeyPress={event => {
-                    handleTotalEnter(event);
-                  }}
-                  onKeyUp={event => {
-                    handleReviewInput(event);
-                  }}/>
+ 
+          {/* 댓글 부분 */}
+          <div id="CommentBody" className="flex items-center m-5">
+            <div className="flex items-center m-5">
+              {Comments.map(data => (
+                <div key={data.id}>
+                  <div className="inline-flex items-center">
+                    <img
+                      alt=""
+                      className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"
+                      src="https://dummyimage.com/103x103"
+                    />
+                    <div className='flex-grow'>
+                      <Link to={`/mypage`}>
+                        <h2 className="title-font font-medium ml-3">{data.id} |</h2>
+                      </Link>
+                    </div>
+                    <span id="CommentContent" className="title-font font-medium ml-3">{data.comment}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <hr/>
+          <div id="CommentInputContainer" className="flex items-center mt-5">
+            <input id="CommentInput"
+                className="comment-input"
+                type="text"
+                placeholder="댓글를 입력해주세요."
+                onKeyPress={event => {
+                  handleTotalEnter(event);
+                }}
+                onKeyUp={event => {
+                  handleReviewInput(event);
+                }} />
+          </div>
+
           <footer>
-            <button className="close" onClick={close}>
+            {/* 혹시 모를 닫힘 버튼 */}
+            {/* <button className="close" onClick={close}>
               close
-            </button>
+            </button> */}
           </footer>
         </section>
       ) : null}

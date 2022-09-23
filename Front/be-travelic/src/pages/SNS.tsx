@@ -5,13 +5,13 @@ import "./css/SNS.css";
 const FeedData = [
   {
   feedid: 1,
-  nickname: '초코누나',
+  nickname: '초코',
   place: '포항 영일대',
   date: '2022-01-25',
   likes: 52,
   comments: 8,
   imgUrl: '',
-  contents: '초코랑 바다 보러 왔어요!',
+  contents: '바다 보러 왔어요!',
   },
   {
     feedid: 2,

@@ -5,7 +5,7 @@ import beTravelic.demo.auth.dto.TokenDto;
 import beTravelic.demo.auth.dto.UserRequestDto;
 import beTravelic.demo.auth.jwt.TokenProvider;
 import beTravelic.demo.auth.repository.UserRepository;
-import beTravelic.demo.domain.User;
+import beTravelic.demo.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package beTravelic.demo.auth.repository;
 
-import beTravelic.demo.domain.RefreshToken;
+import beTravelic.demo.domain.entity.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

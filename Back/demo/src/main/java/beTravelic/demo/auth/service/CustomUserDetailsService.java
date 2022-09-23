@@ -1,7 +1,7 @@
 package beTravelic.demo.auth.service;
 
 import beTravelic.demo.auth.repository.UserRepository;
-import beTravelic.demo.domain.User;
+import beTravelic.demo.domain.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

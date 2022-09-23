@@ -3,7 +3,7 @@ package beTravelic.demo.auth.controller;
 import beTravelic.demo.auth.dto.UserInfoResponseDto;
 import beTravelic.demo.auth.dto.UserRequestDto;
 import beTravelic.demo.auth.service.UserService;
-import beTravelic.demo.domain.User;
+import beTravelic.demo.domain.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

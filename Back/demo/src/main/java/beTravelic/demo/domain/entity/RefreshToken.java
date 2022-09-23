@@ -1,4 +1,4 @@
-package beTravelic.demo.domain;
+package beTravelic.demo.domain.entity;
 
 import lombok.Builder;
 import lombok.Getter;

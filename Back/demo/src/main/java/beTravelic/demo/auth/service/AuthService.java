@@ -4,8 +4,8 @@ import beTravelic.demo.auth.dto.*;
 import beTravelic.demo.auth.jwt.TokenProvider;
 import beTravelic.demo.auth.repository.RefreshTokenRepository;
 import beTravelic.demo.auth.repository.UserRepository;
-import beTravelic.demo.domain.RefreshToken;
-import beTravelic.demo.domain.User;
+import beTravelic.demo.domain.entity.RefreshToken;
+import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.global.util.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 

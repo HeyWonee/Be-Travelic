@@ -3,7 +3,7 @@ package beTravelic.demo.auth.service;
 import beTravelic.demo.auth.dto.UserInfoResponseDto;
 import beTravelic.demo.auth.dto.UserRequestDto;
 import beTravelic.demo.auth.repository.UserRepository;
-import beTravelic.demo.domain.User;
+import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.global.util.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 

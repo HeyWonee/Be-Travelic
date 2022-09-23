@@ -1,11 +1,8 @@
-package beTravelic.demo.domain;
+package beTravelic.demo.domain.entity;
 
 import lombok.*;
-import org.springframework.security.authentication.jaas.AuthorityGranter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity

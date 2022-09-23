@@ -1,6 +1,6 @@
 package beTravelic.demo.auth.dto;
 
-import beTravelic.demo.domain.User;
+import beTravelic.demo.domain.entity.User;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

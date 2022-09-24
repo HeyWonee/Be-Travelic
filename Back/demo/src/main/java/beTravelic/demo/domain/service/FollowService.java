@@ -2,6 +2,7 @@ package beTravelic.demo.domain.service;
 
 import beTravelic.demo.domain.dto.FollowSaveRequestDto;
 import beTravelic.demo.domain.dto.FollowSaveResponseDto;
+import beTravelic.demo.domain.dto.FollowingListResponseDto;
 import beTravelic.demo.domain.entity.Follow;
 import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.repository.FollowRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,6 +45,15 @@ public class FollowService {
         } else {
             new NoPermissionException();
         }
+    }
+
+    public List<FollowingListResponseDto> followingList(String id){
+        List<Follow> tmpList = followRepository.findFollowByFollowing_Id(id);
+        List<FollowingListResponseDto> followingList = new ArrayList<>();
+        for (Follow f : tmpList){
+            followingList.add(FollowingListResponseDto.of(f));
+        }
+        return followingList;
     }
 
 

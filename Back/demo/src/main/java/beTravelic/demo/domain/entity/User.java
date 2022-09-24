@@ -33,10 +33,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserCategories> userCategories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-    @Setter
-    private List<Survey> surveys = new ArrayList<>();
-
 //    @Setter
 //    private List<Follow> follows = new ArrayList<>();
 
@@ -63,6 +59,15 @@ public class User {
     @Setter
     @OneToMany(mappedBy = "user")
     private List<MypagePicture> mypagePictures = new ArrayList<>();
+
+    @Setter
+    @OneToMany
+    private List<Follow> followings = new ArrayList<>();
+
+    @Setter
+    @OneToMany
+    private List<Follow> followers = new ArrayList<>();
+
 
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;

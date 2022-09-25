@@ -6,12 +6,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.font.ShapeGraphicAttribute;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface FollowRepository extends JpaRepository<Follow, Long> {
     Optional<Follow> findFollowByFollower(String id);
+    Optional<Follow> findFollowByFollowing(String id);
     List<Follow> findFollowByFollowing_Id(String id);
 
     List<Follow> findFollowByFollower_Id(String id);

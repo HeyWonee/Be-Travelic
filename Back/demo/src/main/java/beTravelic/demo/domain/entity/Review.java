@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
+@Table(name="review")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

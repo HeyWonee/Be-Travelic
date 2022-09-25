@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@Table(name="user_categories")
 public class UserCategories {
 
     @Id @GeneratedValue

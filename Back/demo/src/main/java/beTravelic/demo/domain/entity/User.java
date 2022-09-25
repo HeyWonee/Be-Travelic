@@ -18,12 +18,12 @@ public class User {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long user_id;
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id")
     private String id;
-    @Column(name = "pw", nullable = false)
+    @Column(name = "pw")
     private String pw;
 
-    @Column(name = "nickname", unique = true)
+    @Column(name = "nickname")
     private String nickname;
 
     @Column(name = "email")

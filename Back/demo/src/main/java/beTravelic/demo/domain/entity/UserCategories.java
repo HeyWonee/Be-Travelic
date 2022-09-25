@@ -1,13 +1,15 @@
 package beTravelic.demo.domain.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class UserCategories {
 
@@ -23,6 +25,11 @@ public class UserCategories {
     @JoinColumn(name = "category_id")
     private Categories categories;
 
+    @Builder
+    public UserCategories(User user, Categories categories){
+        this.categories = categories;
+        this.user = user;
+    }
 
 
 }

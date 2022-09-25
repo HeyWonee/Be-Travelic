@@ -21,18 +21,30 @@ public class FollowService {
     public final FollowRepository followRepository;
     public final UserRepository userRepository;
 
-    public FollowSaveResponseDto followSave(String id, FollowSaveRequestDto dto){
+    public FollowSaveResponseDto followSave(String id, String follower_id){
         Follow follow = new Follow();
-        User follower = userRepository.findUserById(id).orElseThrow(() ->
+        User following = userRepository.findUserById(id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자 없음"));
-        User following = userRepository.findById(dto.getId()).orElseThrow(() ->
+        User follower = userRepository.findUserById(follower_id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자 없음"));
-
         follow.setFollower(follower);
         follow.setFollowing(following);
 
         followRepository.save(follow);
         return new FollowSaveResponseDto(follow.getFollow_id());
+
+//        Follow follow = new Follow();
+//        User following = userRepository.findUserById(id).orElseThrow(() ->
+//                new RuntimeException("일치하는 사용자 없음"));
+//        User follower = userRepository.findUserById(dto.getId()).orElseThrow(() ->
+//                new RuntimeException("일치하는 사용자 없음"));
+//
+//        follow.setFollower(follower);
+//        follow.setFollowing(following);
+//
+//        followRepository.save(follow);
+//
+//        return new FollowSaveResponseDto(follow.getFollow_id());
     }
 
     public void followDelete(String id, Long followId){

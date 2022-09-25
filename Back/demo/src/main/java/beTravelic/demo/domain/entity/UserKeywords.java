@@ -21,13 +21,14 @@ public class UserKeywords {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String keyword_name;
     @OneToOne
-    @JoinColumn(name = "keyword_id")
+    @JoinColumn(name = "name")
     private Keywords keywords;
 
     @Builder
-    public UserKeywords(User user, Keywords keywords) {
-        this.keywords = keywords;
+    public UserKeywords(User user, String keyword_name) {
+        this.keyword_name = keyword_name;
         this.user = user;
     }
 }

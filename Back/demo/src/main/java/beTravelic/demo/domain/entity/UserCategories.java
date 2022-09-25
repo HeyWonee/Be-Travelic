@@ -22,15 +22,20 @@ public class UserCategories {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "category_num")
+    private Integer category_num;
+
     @OneToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_type_id")
     private Categories categories;
 
     @Builder
-    public UserCategories(User user, Categories categories){
-        this.categories = categories;
+    public UserCategories(User user, Integer category_num){
+        this.category_num = category_num;
         this.user = user;
     }
+
+
 
 
 }

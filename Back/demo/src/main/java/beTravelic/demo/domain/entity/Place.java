@@ -71,4 +71,7 @@ public class Place {
     @OneToMany(mappedBy = "place")
     private List<PlaceKeywords> placeKeywords = new ArrayList<>();
 
+//    @Setter
+//    @OneToOne(mappedBy = "place")
+//    private List<Bookmark> bookmarks = new ArrayList<>();
 }

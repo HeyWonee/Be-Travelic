@@ -1,30 +1,49 @@
 package beTravelic.demo.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import beTravelic.demo.domain.entity.User;
+import beTravelic.demo.domain.entity.Place;
 
 import javax.persistence.*;
 
 //  북마크
 @Entity
 @Getter
+@Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="bookmark")
-public class BookMark {
+public class Bookmark {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "bookmark_id")
-    private Long bookmark_id;
+    private Long bookmarkId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User user;
 
     @OneToOne
     @JoinColumn(name = "place_id")
-    private Place place_id;
+    private Place place;
+
+
+//    public Bookmark(User user, Place place){
+//        this.userId = user;
+//        this.placeId = place;
+//    }
+    public void setUser(User user){
+        this.user=user;
+        user.getBookmarks().add(this);
+    }
+    public void setPlace(Place place){
+        this.place=place;
+//        place.getBookmarks().add(this);
+    }
+
+
+
+
+
 }

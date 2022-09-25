@@ -20,9 +20,9 @@ public class Place {
     private Long placeId;
 
 //    카테고리
-//    @OneToOne
-//    @JoinColumn(name = "category_id")
-//    private Categories categories;
+    @OneToOne
+    @JoinColumn(name = "category_id")
+    private Categories categories;
 
 //    지역
     @ManyToOne

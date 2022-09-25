@@ -21,22 +21,22 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class CommentService {
 
-    private final CommentRepository commentRepository;
-
-    private final UserRepository userRepository;
-    private final ReviewRepository reviewRepository;
-
-    public CommentSaveResponseDto commentSave(String id, Long reviewId, CommentSaveRequestDto dto){
-        Comment comment = dto.toCommentEntity();
-        Review review = reviewRepository. findReviewByReview_id(reviewId).orElseThrow(() ->
-                new RuntimeException("일치하는 게시글이 없음"));
-        User user = userRepository.findUserById(id).orElseThrow(() ->
-                new RuntimeException("일치하는 사용자가 없음"));
-        comment.setUser(user);
-        comment.setReview(review);
-        commentRepository.save(comment);
-        return new CommentSaveResponseDto(comment.getComment_id());
-    }
+//    private final CommentRepository commentRepository;
+//
+//    private final UserRepository userRepository;
+//    private final ReviewRepository reviewRepository;
+//
+//    public CommentSaveResponseDto commentSave(String id, Long reviewId, CommentSaveRequestDto dto){
+//        Comment comment = dto.toCommentEntity();
+//        Review review = reviewRepository. findReviewByReview_id(reviewId).orElseThrow(() ->
+//                new RuntimeException("일치하는 게시글이 없음"));
+//        User user = userRepository.findUserById(id).orElseThrow(() ->
+//                new RuntimeException("일치하는 사용자가 없음"));
+//        comment.setUser(user);
+//        comment.setReview(review);
+//        commentRepository.save(comment);
+//        return new CommentSaveResponseDto(comment.getComment_id());
+//    }
 
 //    public CommentUpdateResponseDto CommentUpdate(String id, Long CommentId, CommentUpdateRequestDto dto){
 //        Comment comment = commentRepository.findCommentByComment_id(commentId).orElseThrow(() ->

@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("sns/{review_id}/comment")
 public class CommentController {
 
-    private final CommentService commentService;
-    @PostMapping
-    public ResponseEntity<CommonResponse> commentSave(@RequestParam("id") String id, @RequestParam("review_id") Long review_id, CommentSaveRequestDto dto){
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(commentService.commentSave(id, review_id, dto)), HttpStatus.OK);
-    }
+//    private final CommentService commentService;
+//    @PostMapping
+//    public ResponseEntity<CommonResponse> commentSave(@RequestParam("id") String id, @RequestParam("review_id") Long review_id, CommentSaveRequestDto dto){
+//        return new ResponseEntity<>(CommonResponse.getSuccessResponse(commentService.commentSave(id, review_id, dto)), HttpStatus.OK);
+//    }
 
 //    @PutMapping("/{comment_id}")
 //    public ResponseEntity<CommonResponse> commentUpdate(@RequestParam("id") String id, @RequestParam("comment_id") Long comment_id, CommentSaveRequestDto dto){

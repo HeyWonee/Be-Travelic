@@ -48,10 +48,10 @@ public class FollowService {
     }
 
     public void followDelete(String id, String followId){
-//        Follow following = followRepository.findFollowByFollower(followId).orElseThrow(() ->
-//                new RuntimeException("일치하는 사용자 없음"));
-//        User follower = userRepository.findUserById(id).orElseThrow(() ->
-//                new RuntimeException("일치하는 사용자 없음"));
+        Follow following = followRepository.findFollowByFollower(followId).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
+        User follower = userRepository.findUserById(id).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
 
     }
 

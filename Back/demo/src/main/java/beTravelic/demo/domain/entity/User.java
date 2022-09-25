@@ -34,9 +34,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserCategories> userCategories = new ArrayList<>();
 
-//    @Setter
-//    private List<Follow> follows = new ArrayList<>();
-
     @Setter
     @OneToMany(mappedBy = "user")
     private List<UserPlace> userPlaces = new ArrayList<>();

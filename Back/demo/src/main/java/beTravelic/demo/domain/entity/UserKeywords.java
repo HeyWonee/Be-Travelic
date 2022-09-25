@@ -1,13 +1,16 @@
 package beTravelic.demo.domain.entity;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
 @Table(name="user_keywords")
 @Getter @Setter
+@NoArgsConstructor
 public class UserKeywords {
 
     @Id @GeneratedValue

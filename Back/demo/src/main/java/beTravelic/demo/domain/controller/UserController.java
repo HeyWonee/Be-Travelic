@@ -6,17 +6,21 @@ import beTravelic.demo.domain.service.UserService;
 import beTravelic.demo.global.common.CommonResponse;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
     private final UserService userService;
     @PostMapping
@@ -32,8 +36,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request){
-        String id = (String) request.getAttribute("id");
+    public ResponseEntity<CommonResponse> getUserInfo(@RequestParam("id")String id){
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
     }
 

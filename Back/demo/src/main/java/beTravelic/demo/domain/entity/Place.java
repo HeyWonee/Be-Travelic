@@ -72,6 +72,6 @@ public class Place {
 
     @Builder(builderClassName = "ReviewPlaceId", builderMethodName = "ReviewPlaceId")
     public Place(Long place_id) {
-        this.place_id = place_id;
+        this.placeId = place_id;
     }
 }

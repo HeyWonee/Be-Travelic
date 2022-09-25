@@ -18,7 +18,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 //    @Query("SELECT r FROM Review r WHERE r.user=:userId AND r.region=:regionId")
 //    ArrayList<ReviewResDto> findAllByUserAndRegion(User user, Region reg?ion);
-    List<Review> findAllByUserAndRegion(Long userId, Long regionId);
+//    List<Review> findAllByUserAndRegion(Long userId, Long regionId);
 
     Optional<Review> findReviewByReviewId(long ReviewId);
 

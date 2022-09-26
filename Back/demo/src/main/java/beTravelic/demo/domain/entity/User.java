@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -84,6 +83,14 @@ public class User {
         this.nickname = nickname;
         this.email = email;
     }
+
+//    @Builder
+//    public MypageUser(String id, String nickname, List<Follow> follower, List<Follow> following){
+//        this.nickname = nickname;
+//        this.id = id;
+//        this.follower = follower;
+//        this.following = following;
+//    }
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {

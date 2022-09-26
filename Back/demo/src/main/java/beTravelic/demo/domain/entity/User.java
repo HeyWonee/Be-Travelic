@@ -39,18 +39,12 @@ public class User {
     private List<Survey> surveys = new ArrayList<>();
 
 
-    @Setter
-    @OneToMany
-    private List<Follow> following = new ArrayList<>();
 
-    @Setter
-    @OneToMany
-    private List<Follow> follower = new ArrayList<>();
 
     @Setter
     @OneToMany(mappedBy = "user")
     private List<UserPlace> userPlaces = new ArrayList<>();
-
+//
     @Setter
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();

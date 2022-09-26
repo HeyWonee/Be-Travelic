@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -39,6 +40,13 @@ public class User {
 
 //    @Setter
 //    private List<Follow> follows = new ArrayList<>();
+    @Setter
+    @OneToMany
+    private List<Follow> following = new ArrayList<>();
+
+    @Setter
+    @OneToMany
+    private List<Follow> follower = new ArrayList<>();
 
     @Setter
     @OneToMany(mappedBy = "user")

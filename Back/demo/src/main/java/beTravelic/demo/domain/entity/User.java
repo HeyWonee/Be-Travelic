@@ -16,14 +16,14 @@ import java.util.List;
 public class User {
     @Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long userId;
+    @Column(name = "id", nullable = false, unique = true)
     private String id;
-    @Column(name = "pw")
+    @Column(name = "pw", nullable = false)
     private String pw;
 
-    @Column(name = "nickname")
+    @Column(name = "nickname", unique = true)
     private String nickname;
 
     @Column(name = "email")
@@ -32,6 +32,13 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UserCategories> userCategories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Setter
+    private List<Survey> surveys = new ArrayList<>();
+
+//    @Setter
+//    private List<Follow> follows = new ArrayList<>();
 
     @Setter
     @OneToMany(mappedBy = "user")
@@ -49,6 +56,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
+
+
+
     @Setter
     @OneToMany(mappedBy = "user")
     private List<UserKeywords> userKeywords = new ArrayList<>();
@@ -56,15 +66,6 @@ public class User {
     @Setter
     @OneToMany(mappedBy = "user")
     private List<MypagePicture> mypagePictures = new ArrayList<>();
-
-    @Setter
-    @OneToMany
-    private List<Follow> followings = new ArrayList<>();
-
-    @Setter
-    @OneToMany
-    private List<Follow> followers = new ArrayList<>();
-
 
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
@@ -79,7 +80,7 @@ public class User {
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
 }

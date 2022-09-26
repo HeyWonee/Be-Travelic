@@ -22,11 +22,11 @@ public class Follow {
     private User follower;
 
     public void setFollowing(User following){
-        following.getFollowings().add(this);
+        following.getFollowing().add(this);
         this.following = following;
     }
     public void  setFollower(User follower){
-        follower.getFollowers().add(this);
+        follower.getFollower().add(this);
         this.follower = follower;
     }
 

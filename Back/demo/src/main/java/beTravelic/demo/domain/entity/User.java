@@ -37,7 +37,13 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     @Setter
     private List<Survey> surveys = new ArrayList<>();
+    @Setter
+    @OneToMany
+    private List<Follow> following = new ArrayList<>();
 
+    @Setter
+    @OneToMany
+    private List<Follow> follower = new ArrayList<>();
 
 
 

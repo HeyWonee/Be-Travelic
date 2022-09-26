@@ -38,8 +38,7 @@ public class User {
     @Setter
     private List<Survey> surveys = new ArrayList<>();
 
-//    @Setter
-//    private List<Follow> follows = new ArrayList<>();
+
     @Setter
     @OneToMany
     private List<Follow> following = new ArrayList<>();

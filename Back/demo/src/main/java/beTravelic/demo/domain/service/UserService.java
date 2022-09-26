@@ -38,8 +38,14 @@ public class UserService {
     }
 
     // 닉네임 중복 확인
-    public void checkNickname(String nickname) {
-        if(userRepository.existsUserByNickname(nickname)) throw new DuplicatedNickNameException(nickname);
+    public isExistResponseDto checkNickname(String nickname) throws Exception {
+        isExistResponseDto isExist = new isExistResponseDto();
+        if(userRepository.existsUserByNickname(nickname)){
+            isExist.setExist(true);
+        }else{
+            isExist.setExist(false);
+        }
+        return isExist;
     }
 
     // 사용자 정보 조회

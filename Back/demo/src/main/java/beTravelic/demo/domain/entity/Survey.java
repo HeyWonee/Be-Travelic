@@ -3,36 +3,27 @@ package beTravelic.demo.domain.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-
+import javax.print.attribute.standard.MediaSize;
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor
-@Table(name="survey")
 public class Survey {
+    @Id @GeneratedValue
+    @Column(name = "suervey_id")
+    private Long id;
 
-    @Id
-    @GeneratedValue
-    @Column(name = "surveySeq", insertable = false, updatable = false)
-    private long surveySeq;
-
-    @Column(name = "categoryId")
-    private Integer categoryId;
-    @Column(name = "keywordName")
-    private String keywordName;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @OneToOne
     private User user;
+    private String survey_keyword;
+    private Integer survey_category;
 
     @Builder
-    public Survey(Integer categoryId, String keywordName){
-        this.categoryId = categoryId;
-        this.keywordName = keywordName;
-    }
-    public void setUser(User user){
-        user.getSurveys().add(this);
-        this.user=user;
+    public Survey(User user, String survey_keyword, Integer survey_category){
+        this.survey_keyword = survey_keyword;
+        this.survey_category = survey_category;
+        this.user = user;
     }
 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 //  여행지
-@Builder
 @Entity
 @Getter
 @AllArgsConstructor
@@ -16,7 +15,7 @@ import java.util.List;
 @Table(name="place")
 public class Place {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "place_id")
     private Long placeId;
 
@@ -69,6 +68,10 @@ public class Place {
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "place")
-    private List<PlaceKeywords> placeKeywords = new ArrayList<>();
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
+    @Builder(builderClassName = "ReviewPlaceId", builderMethodName = "ReviewPlaceId")
+    public Place(Long place_id) {
+        this.placeId = place_id;
+    }
 }

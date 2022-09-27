@@ -1,35 +1,41 @@
-//package beTravelic.demo.domain.entity;
-//
-//
-//import lombok.AccessLevel;
-//import lombok.Builder;
-//import lombok.NoArgsConstructor;
-//import lombok.Setter;
-//
-//import javax.persistence.*;
-//
-//@Entity
-//@Setter
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-//public class Follow {
-//
-//    @Id @GeneratedValue
-//    @Column(name = "follow_id")
-//    private Long follow_id;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User following_user_id;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User follower_user_id;
+package beTravelic.demo.domain.entity;
 
-//    @Builder
-//    public Follow(User userSeq, String follower, String following){
-//        this.follower = follower;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.util.Lazy;
+
+import javax.persistence.*;
+
+@Entity
+@Setter
+@Getter
+@NoArgsConstructor
+public class Follow {
+
+    @Id @GeneratedValue
+    @Column(name = "follow_id")
+    private Long follow_id;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "user_id", name = "following_user_id")
+    private User following;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "user_id", name = "follower_user_id")
+    private User follower;
+
+
+
+//    public void setFollowing(User following){
+//        following.getFollowing().add(this);
 //        this.following = following;
-//        this.userSeq = userSeq;
+//    }
+//    public void  setFollower(User follower){
+//        follower.getFollower().add(this);
+//        this.follower = follower;
 //    }
 
-//}
+
+
+}

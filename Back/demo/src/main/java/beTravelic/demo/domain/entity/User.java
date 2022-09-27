@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.PageRequest;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,28 +17,17 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long user_id;
+    private Long userId;
     @Column(name = "id", nullable = false, unique = true)
     private String id;
     @Column(name = "pw", nullable = false)
     private String pw;
-
     @Column(name = "nickname", unique = true)
     private String nickname;
-
     @Column(name = "email")
     private String email;
+    @Column(name = "refresh_token")
     private String refreshToken;
-
-    @OneToMany(mappedBy = "user")
-    private List<UserCategories> userCategories = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-    @Setter
-    private List<Survey> surveys = new ArrayList<>();
-
-//    @Setter
-//    private List<Follow> follows = new ArrayList<>();
 
     @Setter
     @OneToMany(mappedBy = "user")
@@ -59,21 +47,24 @@ public class User {
 
     @Setter
     @OneToMany(mappedBy = "user")
-    private List<UserKeywords> userKeywords = new ArrayList<>();
-
-    @Setter
-    @OneToMany(mappedBy = "user")
     private List<MypagePicture> mypagePictures = new ArrayList<>();
 
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }
     @Builder
-    public User(String pw, String id, String nickname, String email){
+    public User(String pw, String id, String nickname, String email
+    ){
         this.id = id;
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
+    }
+
+
+    @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
+    public User(Long user_id) {
+        this.userId = user_id;
     }
 
 }

@@ -25,7 +25,7 @@ public class UserController {
     private final UserService userService;
     @PostMapping
     @ApiOperation(value = "회원가입", notes = "id, pw 입력")
-    public ResponseEntity<CommonResponse> signUpUser(@ModelAttribute @Validated SignUpRequestDto dto) throws IOException {
+    public ResponseEntity<CommonResponse> signUpUser(@ModelAttribute SignUpRequestDto dto) throws IOException {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.signUpUser(dto)), HttpStatus.OK);
     }
 
@@ -36,18 +36,17 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request){
-        String id = (String) request.getParameter("id");
-        System.out.println("id : " + id);
-        System.out.println("request : " + request.getSession().getId());
+    public ResponseEntity<CommonResponse> getUserInfo(@RequestParam("id") String id){
+//        String id = (String) request.getParameter("id");
+//        System.out.println("id : " + id);
+//        System.out.println("request : " + request.getSession().getId());
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
     }
 
 
     @GetMapping("/nickname/{nickName}")
     @ApiOperation(value = "닉네임 중복 확인", notes = "닉네임 입력")
-    public ResponseEntity<?> checkNickname(@PathVariable("nickName") String nickName){
-        userService.checkNickname(nickName);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> checkNickname(@PathVariable("nickName") String nickName) throws Exception {
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.checkNickname(nickName)), HttpStatus.OK);
     }
 }

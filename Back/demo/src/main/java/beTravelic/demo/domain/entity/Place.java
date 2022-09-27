@@ -68,7 +68,7 @@ public class Place {
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "place")
-    private List<PlaceKeywords> placeKeywords = new ArrayList<>();
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
     @Builder(builderClassName = "ReviewPlaceId", builderMethodName = "ReviewPlaceId")
     public Place(Long place_id) {

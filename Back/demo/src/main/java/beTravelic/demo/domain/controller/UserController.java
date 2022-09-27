@@ -35,12 +35,12 @@ public class UserController {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.login(dto)), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<CommonResponse> getUserInfo(@RequestParam("id") String id){
+    @GetMapping("/{user_id}")
+    public ResponseEntity<CommonResponse> getUserInfo(@RequestParam("user_id") String user_id){
 //        String id = (String) request.getParameter("id");
 //        System.out.println("id : " + id);
 //        System.out.println("request : " + request.getSession().getId());
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(user_id)), HttpStatus.OK);
     }
 
 

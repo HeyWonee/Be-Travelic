@@ -13,11 +13,11 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Table(name="user")
-public class User {
+public class User  {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long userId;
+    private Long user_id;
     @Column(name = "id", nullable = false, unique = true)
     private String id;
     @Column(name = "pw", nullable = false)
@@ -26,6 +26,9 @@ public class User {
     private String nickname;
     @Column(name = "email")
     private String email;
+
+    @Column(name = "image")
+    private String image;
     @Column(name = "refresh_token")
     private String refreshToken;
 
@@ -53,18 +56,19 @@ public class User {
         this.refreshToken = refreshToken;
     }
     @Builder
-    public User(String pw, String id, String nickname, String email
+    public User(String pw, String id, String nickname, String email, String image
     ){
         this.id = id;
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
+        this.image = image;
     }
 
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {
-        this.userId = user_id;
+        this.user_id = user_id;
     }
 
 }

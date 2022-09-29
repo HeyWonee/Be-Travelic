@@ -58,4 +58,9 @@ public class UserController {
     public ResponseEntity<?> checkNickname(@PathVariable("nickName") String nickName) throws Exception {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.checkNickname(nickName)), HttpStatus.OK);
     }
+    @GetMapping("/email/{email}")
+    @ApiOperation(value = "이메일 중복 확인", notes = "닉네임 입력")
+    public ResponseEntity<?> checkEmail(@PathVariable("email") String email) throws Exception {
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.checkEmail(email)), HttpStatus.OK);
+    }
 }

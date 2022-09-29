@@ -1,19 +1,23 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 import { DetailInfo, DetailRecommend, MapContainer } from "../components/index";
 import "./css/PlaceDetailMain.css";
 
-const DetailData = 
-  {
-  id: 1,
-  category: '관광지',
-  title: '경복궁',
-  imgUrl: '',
-  rating: 4,
-  address: '서울특별시 종로구 사직로 161',
-  phoneNumber: '02-3700-3900',
-  detail: '경복궁은 1395년 태조 이성계에 의해서 새로운 조선왕조의 법궁으로 지어졌다. 경복궁은 동궐(창덕궁)이나 서궐(경희궁)에 비해 위치가 북쪽에 있어 북궐이라 불리기도 했다. 경복궁은 5대 궁궐 가운데 으뜸의 규모와 건축미를 자랑한다. 경복궁은 임진왜란 때 상당수의 건물이 불타 없어진 아픔을 갖고 있으며, 고종 때에 흥선대원군의 주도 아래 7,700여칸에 이르는 건물들을 다시 세웠다. 그러나 또 다시 명성황후 시해사건이 일어나면서 왕조의 몰락과 함께 경복궁도 왕궁으로서의 기능을 상실하고 말았다. 경복궁에는 조선시대의 대표적인 건축물인 경회루와 향원정의 연못이 원형대로 남아 있으며, 근정전의 월대와 조각상들은 당시의 조각미술을 대표한다. 현재 흥례문 밖 서편에는 국립고궁 박물관이 위치하고 있고, 경복궁 내 향원정의 동편에는 국립민속 박물관이 위치하고 있다.',
-  lat: 37.57759797024925,
-  lng: 126.97689221271072,
-  }
+interface Place {
+  plaec: string;
+  placeId: number;
+  categories: number;
+  region: number;
+  addr: string;
+  title: string;
+  image: string;
+  mapx: string;
+  mapy: string;
+  score: number;
+  content_id: number;
+  overview: string;
+}
 
 const RecommendData = [
   {
@@ -35,27 +39,90 @@ const RecommendData = [
 ];
 
 function PlaceDetailMain() {
+  const place_id = 1
+  const [ place, setPlace ] = useState<Place[]>([]);
+
+  // 여행지 상세정보 GET (spring)
+  useEffect(() => {
+    axios
+      .get(`http://j7d205.p.ssafy.io:8443/places/${place_id}`)
+      .then(( { data } ) => {
+        console.log(data)
+        setPlace(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
+
+
   return (
     <div>
       <div>
       {/* 여행지 상세정보 */}
-        <DetailInfo
-        id={DetailData.id}
-        category={DetailData.category}
-        title={DetailData.title}
-        imgUrl={DetailData.imgUrl}
-        rating={DetailData.rating}
-        address={DetailData.address}
-        detail={DetailData.detail}
-        phoneNumber={DetailData.phoneNumber}
-      />
+      <section className="text-gray-600 body-font overflow-hidden">
+      <div className="container px-5 py-24 mx-auto">
+        <div id="placeDetailInfoCard">
+          <div id="placeDetailInfo">
+            <div className="lg:w-4/5 mx-auto flex flex-wrap">
+              <img
+                id="placeImage"
+                alt="placeImage"
+                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
+                src={place.image}
+              />
+
+              <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">{category}</h2> */}
+                <div className="flex">
+                  <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                    {title}
+                  </h1>
+
+                  {/* 북마크 버튼 => 수정 예정 */}
+                  <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                    <svg
+                      fill="red"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      className="w-5 h-5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <hr />
+
+                <h3 className="m-1">{addr}</h3>
+                {/* 전화번호 <h3 className="m-2">{phoneNumber}</h3> */}
+
+                {/* 별점과 리뷰 => 수정 및 추가 예정(개수) */}
+                <div className="flex m-1">
+                  {(function () {
+                    let stars = [];
+                    for (let i = 0; i < score; i++) {
+                      stars.push(<span>⭐</span>);
+                    }
+                    return stars;
+                  })()}
+                  <p>(50)</p>
+                </div>
+
+                <p className="leading-relaxed m-1 mt-3">{overview}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
       </div>
 
       <div className="container px-5 mx-auto">
         <div id="kakaomap">
           <MapContainer
-            lat={DetailData.lat}
-            lng={DetailData.lng}
+            lat={mapx}
+            lng={mapy}
           />
         </div>
       </div>

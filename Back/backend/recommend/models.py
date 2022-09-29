@@ -169,7 +169,7 @@ class Follow(models.Model):
 
 
 class RecommendFeed(models.Model):
-    recommend_feed_id = models.IntegerField(primary_key=True)
+    recommend_user_id = models.IntegerField(primary_key=True)
     contents = models.CharField(max_length=500, blank=True, null=True)
     image_x = models.CharField(max_length=500, blank=True, null=True)
     image_y = models.CharField(max_length=500, blank=True, null=True)

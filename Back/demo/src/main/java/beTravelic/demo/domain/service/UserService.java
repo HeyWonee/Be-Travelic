@@ -4,6 +4,7 @@ import beTravelic.demo.domain.dto.*;
 import beTravelic.demo.domain.entity.Survey;
 import beTravelic.demo.domain.exception.DuplicatedNickNameException;
 import beTravelic.demo.domain.entity.User;
+import beTravelic.demo.domain.exception.NoExistUserException;
 import beTravelic.demo.domain.repository.FollowRepository;
 import beTravelic.demo.domain.repository.ReviewRepository;
 import beTravelic.demo.domain.repository.SurveyRepository;
@@ -21,7 +22,6 @@ import java.io.IOException;
 @Transactional
 public class UserService {
     private final JwtProvider jwtProvider;
-
     private final UserRepository userRepository;
     private final SurveyRepository surveyRepository;
     private final FollowRepository followRepository;
@@ -54,6 +54,15 @@ public class UserService {
         }
         return isExist;
     }
+    public isExistResponseDto checkEmail(String email) throws Exception {
+        isExistResponseDto isExist = new isExistResponseDto();
+        if(userRepository.existsUserByEmail(email)){
+            isExist.setExist(true);
+        }else{
+            isExist.setExist(false);
+        }
+        return isExist;
+    }
 
     // 사용자 정보 조회
     public UserInfoResponseDto getUserInfo(String id) {
@@ -71,4 +80,9 @@ public class UserService {
         return userInfoResponseDto;
     }
 
+    public GetAccessTokenResponseDto getAccessToken(String refreshToken) {
+        User user = userRepository.findUserByRefreshToken(refreshToken).orElseThrow(() ->
+            new NoExistUserException());
+        return new GetAccessTokenResponseDto(jwtProvider.getAccessToken(user.getId()));
+    }
 }

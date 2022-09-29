@@ -103,7 +103,7 @@ class Review(models.Model):
     user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
     place_id = models.ForeignKey('Place', models.DO_NOTHING, db_column='place_id', blank=True, null=True)
     region_id = models.ForeignKey('Regions', models.DO_NOTHING, db_column='region_id', blank=True, null=True)
-
+    review_like = models.IntegerField()
     class Meta:
         managed = False
         db_table = 'review'
@@ -116,7 +116,7 @@ class Reviewlike(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'reviewLike'
+        db_table = 'review_like'
 
 
 

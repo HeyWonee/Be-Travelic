@@ -33,8 +33,15 @@ public class WebConfig implements WebMvcConfigurer {
 //    @Override
 //    public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(refreshTokenInterceptor).addPathPatterns("/users/access-token");
-//        registry.addInterceptor(accessTokenInterceptor).excludePathPatterns(Arrays.asList(
-//                new String[]{"/users", "/users/login", "/swagger-ui.html", "/swagger-ui.html/**", "/swagger-resources", "/swagger-resources/**", "/v3/*", "/v3"}));
+//        registry.addInterceptor(accessTokenInterceptor).excludePathPatterns("/users");
+//        registry.addInterceptor(accessTokenInterceptor).excludePathPatterns("/users/token");
+//        registry.addInterceptor(accessTokenInterceptor).excludePathPatterns("/users/nickname/{nickname}");
+//
+//        registry.addInterceptor(accessTokenInterceptor).excludePathPatterns("/swagger-ui.html#");
+//        registry.addInterceptor(accessTokenInterceptor).excludePathPatterns("/swagger-ui.html/**");
+//
+//        registry.addInterceptor(accessTokenInterceptor).excludePathPatterns("/v3");
+//        registry.addInterceptor(accessTokenInterceptor).excludePathPatterns("/v3/**");
 //    }
 
 }

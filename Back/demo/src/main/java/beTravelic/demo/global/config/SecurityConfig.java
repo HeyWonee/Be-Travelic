@@ -22,6 +22,13 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http ) throws Exception {
+//        http.cors().configurationSource(request ->  {
+//            var cors = new CorsConfiguration();
+//            cors.setAllowedOrigins(Arrays.asList("/**"));    // setAllowedOrigins() : 허용할 URL
+//            cors.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "OPTIONS"));  // setAllowedMethods() : 허용할 Http Method
+//            cors.setAllowedHeaders(Arrays.asList("*"));   // setAllowedHeaders() : 허용할 Header
+//            return cors;
+//        });
 
         http.csrf().disable();
         http.authorizeRequests()

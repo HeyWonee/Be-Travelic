@@ -1,7 +1,9 @@
 import React, { FormEvent, SetStateAction, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getMemberId, login, register } from "../../apis/auth";
 import { authActions } from "../../store/auth";
+import "../../pages/css/OnBoard.css";
 
 interface error {
   email: boolean;
@@ -14,9 +16,11 @@ const SignUpForm: React.FC<{
   setStatus: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ status, setStatus }) => {
   const [inputValues, setInputValues] = useState({
+    nickname: "",
     email: "",
     password: "",
     confirmedPassword: "",
+    image: "image",
   });
 
   const navigate = useNavigate();
@@ -87,32 +91,62 @@ const SignUpForm: React.FC<{
     // axios
     // 설문조사로
     e.preventDefault();
+    const { nickname, email, password, image } = inputValues;
 
-    switch (identifier) {
-      case "login":
-        // login
-        dispatch(authActions.authenticate(true));
-        navigate("/mypage", { replace: true });
-        break;
-      case "signup":
-        dispatch(authActions.authenticate(true));
-        navigate("/survey", { replace: true });
-        // signup
-        break;
-      default:
-        // back
-        setStatus(identifier);
-        break;
+    let res;
+    if (identifier === "login") {
+      res = await login({ email, password });
+    } else if (identifier === "signup") {
+      res = await register({ nickname, email, password, image });
+    } else {
+      setStatus(identifier);
     }
+
+    // const { accessToken, refreshToken } = res;
+
+    // token 저장
+    // dispatch(
+    //   authActions.authenticate({
+    //     accessToken,
+    //     refreshToken,
+    //   })
+    // );
+    // let userId: string | null = null;
+    // if (identifier === "login") {
+    //   userId = await getMemberId();
+    // }
+
+    // const url = userId === null ? "/survey" : `/mypage/${userId}`;
+    // navigate(url, { replace: true });
   };
 
   return (
-    <div className="w-full  md:mt-0 sm:max-w-md xl:p-0">
+    <div className="w-full  md:mt-0 sm:max-w-md xl:p-0 fadeIn">
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center">
           회원 정보 입력
         </h1>
         <form className="space-y-4 md:space-y-6" action="#">
+          {status === "signup" && (
+            <div>
+              <label
+                htmlFor="nickname"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                닉네임
+              </label>
+              <input
+                type="text"
+                name="nickname"
+                id="nickname"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                placeholder="닉네임을 입력해주세요."
+                required
+                onChange={inputChangeHandler.bind(this, "nickname")}
+                onBlur={onBlurHandler.bind(this, "nickname")}
+              />
+            </div>
+          )}
           <div>
             <label
               htmlFor="email"

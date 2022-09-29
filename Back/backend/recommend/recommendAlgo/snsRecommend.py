@@ -37,8 +37,13 @@ user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
 Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
 
 
+
 current_user_id= 1
 def sns_recommendations(current_user_id):
+
+# current_user_id= 1
+# def sns_recommendations(current_user_id):
+
 
     
 
@@ -114,6 +119,10 @@ def sns_recommendations(current_user_id):
         cursor=conn.cursor()
         sql = "truncate recommendfeed"
         cursor.execute(sql)
+
+
+# print(sns_recommendations(current_user_id))
+# # print(follow_data)
 
 
         #cursor=conn.cursor()

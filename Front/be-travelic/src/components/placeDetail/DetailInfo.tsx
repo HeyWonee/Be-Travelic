@@ -1,8 +1,6 @@
-import { ListenOptions } from "net";
 import "../css/PlaceDetail.css"
 
 interface DetailInfo {
-  plaec: string;
   placeId: number;
   categories: number;
   region: number;
@@ -16,7 +14,7 @@ interface DetailInfo {
   overview: string;
 }
 
-function DetailInfo( props: DetailInfo) {
+function DetailInfo( props: DetailInfo) {  
   const { placeId, categories, region, addr, title, image, mapx, mapy, score, content_id, overview } = props
   
   return (

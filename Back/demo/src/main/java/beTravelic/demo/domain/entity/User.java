@@ -30,17 +30,11 @@ public class User  {
     @Column(name = "refresh_token")
     private String refreshToken;
 
+    @Embedded
+    @Setter
+    private Picture picture;
     // file_name
-    @Column(name = "file_name")
-    private String fileName;
 
-    // real_file_name
-    @Column(name = "real_file_name")
-    private String realFileName;
-
-//    @Embedded
-//    @Setter
-//    private MypagePicture mypagePicture;
 
     @Setter
     @OneToMany(mappedBy = "user")
@@ -68,8 +62,18 @@ public class User  {
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
-//        this.image = "image";
     }
+
+    @Builder(builderMethodName = "ProfileSave", builderClassName = "ProfileSave")
+    public User(Picture picture){
+        this.picture = picture;
+    }
+
+//    @Builder
+//    public User(String realFileName, String fileName){
+//        this.fileName = fileName;
+//        this.realFileName = realFileName;
+//    }
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {

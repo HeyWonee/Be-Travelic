@@ -15,7 +15,7 @@ interface DetailInfo {
 }
 
 function DetailInfo( props: DetailInfo) {  
-  const { placeId, categories, region, addr, title, image, mapx, mapy, score, content_id, overview } = props
+  const { addr, title, image, score, overview } = props
   
   return (
     <section className="text-gray-600 body-font overflow-hidden">
@@ -31,13 +31,12 @@ function DetailInfo( props: DetailInfo) {
               />
 
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">{category}</h2> */}
                 <div className="flex">
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                     {title}
                   </h1>
 
-                  {/* 북마크 버튼 => 수정 예정 */}
+                  {/* 북마크 버튼 */}
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                     <svg
                       fill="red"
@@ -51,13 +50,11 @@ function DetailInfo( props: DetailInfo) {
                     </svg>
                   </button>
                 </div>
-
+                
                 <hr />
-
                 <h3 className="m-1">{addr}</h3>
-                {/* 전화번호 <h3 className="m-2">{phoneNumber}</h3> */}
 
-                {/* 별점과 리뷰 => 수정 및 추가 예정(개수) */}
+                {/* 별점과 리뷰 */}
                 <div className="flex m-1">
                   {(function () {
                     let stars = [];

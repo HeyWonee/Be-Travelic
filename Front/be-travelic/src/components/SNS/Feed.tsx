@@ -20,7 +20,7 @@ interface Feed {
 
 
 function Feed( props: Feed) {
-  const { contents, nickname, created_at, image_x, image_y, place_id, user_id, visited_at } = props
+  const { contents, nickname, image_x, image_y, user_id, visited_at } = props
 
   // 모달창
   // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)

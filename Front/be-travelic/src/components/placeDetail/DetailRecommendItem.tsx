@@ -12,7 +12,7 @@ interface DetailRecommendItem {
 }
 
 function DetailRecommendItem( props: DetailRecommendItem ) {
-  const { place_id, addr, score, mapx, title, image, overview } = props
+  const { place_id, title, image } = props
 
   return (
     <div id="DetailRecommendItem" className="items-center text-center m-4">

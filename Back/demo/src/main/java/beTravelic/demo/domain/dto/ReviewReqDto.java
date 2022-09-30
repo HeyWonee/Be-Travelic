@@ -25,7 +25,8 @@ public class ReviewReqDto {
     private String contents;
 
     // 이미지 주소
-    private String image;
+    private String fileName;
+    private String realFileName;
 
     private Long score;
 
@@ -43,7 +44,8 @@ public class ReviewReqDto {
                 .user(User.ReviewUserId().user_id((Long.valueOf(this.user_id))).build())
                 .region(Region.ReviewRegionId().regionId((Long.valueOf(regionId))).build())
                 .contents(this.contents)
-                .image(this.image)
+                .fileName(this.fileName)
+                .realFileName(this.realFileName)
                 .score(this.score)
                 .created_at(this.created_at)
                 .visited_at(this.visited_at)

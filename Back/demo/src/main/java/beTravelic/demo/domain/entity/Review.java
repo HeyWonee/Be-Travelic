@@ -41,9 +41,6 @@ public class Review {
     @Column(name = "contents")
     private String contents;
 
-    //    게시글 이미지
-    @Column(name = "image")
-    private String image;
 
     //    평점
     @Column(name = "score")
@@ -61,6 +58,14 @@ public class Review {
     //  게시글 좋아요
     @Column(name = "reviewLike")
     private int reviewLike;
+
+    // file_name
+    @Column(name = "file_name")
+    private String fileName;
+
+    // real_file_name
+    @Column(name = "real_file_name")
+    private String realFileName;
 
     //    Comment와 연결
     @OneToMany(mappedBy = "review")

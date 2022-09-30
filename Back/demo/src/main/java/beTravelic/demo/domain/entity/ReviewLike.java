@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="reviewLike")
+@Table(name="review_like")
 public class ReviewLike {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

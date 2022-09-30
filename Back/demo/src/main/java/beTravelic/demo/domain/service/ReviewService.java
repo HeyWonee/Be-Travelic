@@ -36,7 +36,7 @@ public class ReviewService {
 
     private final RegionRepository regionRepository;
 
-    @Transactional
+//    @Transactional
     public Long post(ReviewReqDto reviewReqDto) throws Exception {
         reviewReqDto.setCreated_at(new Date());
         reviewReqDto.setReviewLike(0);
@@ -83,7 +83,7 @@ public class ReviewService {
 //    }
 //
 
-    @Transactional
+//    @Transactional
     public void put(ReviewReqDto reviewReqDto) throws Exception {
         // 수정 날짜 대신 생성 날짜 변경
         reviewReqDto.setCreated_at(new Date());
@@ -95,7 +95,7 @@ public class ReviewService {
         }
     }
 
-    @Transactional
+//    @Transactional
     public void deleteById(Long reviewId) throws Exception {
         Review reviewEntity = reviewRepository.findById(reviewId).orElse(null);
 

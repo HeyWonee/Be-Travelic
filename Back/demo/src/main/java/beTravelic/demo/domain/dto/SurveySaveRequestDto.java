@@ -17,8 +17,8 @@ public class SurveySaveRequestDto {
 //    private String keyword ;
 //    List<SurveyKeywordDto> keyword;
 //    List<SurveyCategoryDto> category;
-    private String keyword;
-    private Integer category;
+    private List<String> keyword;
+    private List<String> category;
 
 
     public Survey toSurveyEntity(){

@@ -1,13 +1,11 @@
 package beTravelic.demo.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 //  좋아요
+@Builder
 @Entity
 @Getter
 @AllArgsConstructor
@@ -16,12 +14,12 @@ import javax.persistence.*;
 @Table(name="reviewLike")
 public class ReviewLike {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "like_id")
     private Long like_id;
 
     //    리뷰
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "review_id")
     private Review review;
 
@@ -30,4 +28,11 @@ public class ReviewLike {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

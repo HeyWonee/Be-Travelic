@@ -35,6 +35,8 @@ public class ReviewResDto {
 
     private String visited_at;
 
+    private int reviewLike;
+
 //    @Setter
 //    List<CommentResponseDto> comments;
 
@@ -49,6 +51,7 @@ public class ReviewResDto {
                 .score(review.getScore())
                 .created_at(review.getCreated_at())
                 .visited_at(review.getVisited_at())
+                .reviewLike(review.getReviewLike())
                 .build();
     }
 //    public static ReviewResDto of(Review review) {

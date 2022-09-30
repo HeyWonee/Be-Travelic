@@ -27,7 +27,7 @@ public class UserService {
     private final FollowRepository followRepository;
     private final ReviewRepository reviewRepository;
     // 회원가입
-    @Transactional
+//    @Transactional
     public SignupResponseDto signUpUser(SignUpRequestDto dto) throws IOException {
         User user = dto.toUserEntity();
         String accessToken = jwtProvider.getAccessToken(user.getId());

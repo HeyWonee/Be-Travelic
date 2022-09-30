@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.print.attribute.standard.MediaSize;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +20,16 @@ public class Survey {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String surveykeyword;
-    private Integer surveycategory;
+    @ElementCollection
+    @Column(name="surveykeyword")
+    private List<String> surveykeyword;
+
+    @ElementCollection
+    @Column(name="surveycategory")
+    private List<String> surveycategory;
 
     @Builder
-    public Survey(User user, String survey_keyword, Integer survey_category){
+    public Survey(User user, List<String> survey_keyword, List survey_category){
         this.surveykeyword = survey_keyword;
         this.surveycategory = survey_category;
         this.user = user;

@@ -58,6 +58,10 @@ public class Review {
     @Column(name = "visited_at")
     private String visited_at;
 
+    //  게시글 좋아요
+    @Column(name = "reviewLike")
+    private int reviewLike;
+
     //    Comment와 연결
     @OneToMany(mappedBy = "review")
     private List<Comment> comments = new ArrayList<>();

@@ -33,6 +33,8 @@ public class ReviewReqDto {
 
     private String visited_at;
 
+    private int reviewLike;
+
     public Review toEntity() {
         Date created_at = new Date();
         return Review.builder()
@@ -45,6 +47,7 @@ public class ReviewReqDto {
                 .score(this.score)
                 .created_at(this.created_at)
                 .visited_at(this.visited_at)
+                .reviewLike(this.reviewLike)
                 .build();
     }
 

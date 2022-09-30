@@ -22,7 +22,7 @@ public class UserInfoResponseDto {
     private String pw;
     private String nickname;
     private String email;
-    private String keyword;
+    private List<String> keyword;
     private int followerCnt;
     private int followingCnt;
     private int reviewCnt;

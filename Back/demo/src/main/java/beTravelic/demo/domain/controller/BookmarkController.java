@@ -56,7 +56,7 @@ public class BookmarkController {
         List<BookmarkResDto> bookmarks = bookmarkService.findAllByUser(user_id);
         return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
     }
-    @GetMapping("/region/{region_id}/user/{user_id}")
+    @GetMapping("/region/{region_id}/user")
     public ResponseEntity<?> getBookmarkByRegionAndUser(HttpServletRequest request, @PathVariable("region_id")Long region_id) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("user_id", jwtProvider.getUserIdFromAccessToken(accessToken));

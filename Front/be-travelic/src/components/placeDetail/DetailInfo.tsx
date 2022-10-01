@@ -15,7 +15,7 @@ interface DetailInfo {
 }
 
 function DetailInfo( props: DetailInfo) {
-  const id = ''  
+
   const { placeId, addr, title, image, score, overview } = props  
 
   return (
@@ -23,14 +23,14 @@ function DetailInfo( props: DetailInfo) {
       <div className="container px-5 py-24 mx-auto">
         <div id="placeDetailInfoCard">
           <div id="placeDetailInfo">
-            <div className="lg:w-4/5 mx-auto flex flex-wrap">
+            <div className="lg:w-full mx-auto flex flex-wrap lg:pl-2">
               <img
                 id="placeImage"
                 alt="placeImage"
                 className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
                 src={image}
               />
-              <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <div className="lg:w-1/2 w-full lg:pl-10 lg:pr-2 lg:py-6 mt-6 lg:mt-0">
                 <div className="flex">
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                     {title}
@@ -52,7 +52,7 @@ function DetailInfo( props: DetailInfo) {
                 </div>
                 
                 <hr />
-                <h3 className="m-1">{addr}</h3>
+                <h3 className="text-gray-900 text-xl title-font font-medium m-1 m">{addr}</h3>
 
                 {/* 별점과 리뷰 */}
                 <div className="flex m-1">
@@ -66,7 +66,7 @@ function DetailInfo( props: DetailInfo) {
                   <p>({score})</p>
                 </div>
 
-                <p className="leading-relaxed m-1 mt-3">{overview}</p>
+                <p className="leading-relaxed text-lg m-1 mt-5">{overview}</p>
               </div>
             </div>
           </div>

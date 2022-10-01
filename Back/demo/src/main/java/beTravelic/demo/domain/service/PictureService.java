@@ -26,9 +26,10 @@ public class PictureService {
     private final UserRepository userRepository;
     @Value("${path.image:/image/}")
     private String IMAGE_PATH;
-    public ProfileSaveResponseDto profileSave(ProfileSaveRequestDto dto) throws Exception{
+    public ProfileSaveResponseDto profileSave(String id, ProfileSaveRequestDto dto) throws Exception{
         Picture picture = null;
-        User user = dto.toUserPicture();
+        User user = userRepository.findUserById(id).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
         String fileName = UUID.randomUUID().toString();
         String contentType = dto.getPicture().getContentType();
         File file = null;
@@ -45,14 +46,14 @@ public class PictureService {
             new RuntimeException("지원하는 사진 형식이 아닙니다");
         }
         dto.getPicture().transferTo(file);
-        user.setPicture(picture);
+        user.setProfileImage(picture);
         userRepository.save(user);
         
         return ProfileSaveResponseDto.of(picture.getRealFileName());
     }
 
-    public byte[] getUserProfileImage(Long userId) throws IOException {
-        User user = userRepository.findUserByUser_id(userId).orElseThrow(() ->
+    public byte[] getUserProfileImage(Long user_id) throws IOException {
+        User user = userRepository.findByUser_id(user_id).orElseThrow(() ->
            new NoExistUserException());
         InputStream inputStream = new FileInputStream(IMAGE_PATH + user.getPicture().getRealFileName());
         return IOUtils.toByteArray(inputStream);

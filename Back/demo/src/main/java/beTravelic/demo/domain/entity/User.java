@@ -64,10 +64,13 @@ public class User  {
         this.email = email;
     }
 
-    @Builder(builderMethodName = "ProfileSave", builderClassName = "ProfileSave")
-    public User(Picture picture){
+    public void setProfileImage(Picture picture){
         this.picture = picture;
     }
+//    @Builder(builderMethodName = "ProfileSave", builderClassName = "ProfileSave")
+//    public User(Picture picture){
+//        this.picture = picture;
+//    }
 
 //    @Builder
 //    public User(String realFileName, String fileName){
@@ -79,5 +82,6 @@ public class User  {
     public User(Long user_id) {
         this.user_id = user_id;
     }
+
 
 }

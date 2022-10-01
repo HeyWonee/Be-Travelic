@@ -11,9 +11,10 @@ public class ProfileSaveRequestDto {
 
     private MultipartFile picture;
 
-    @Builder
-    public User toUserPicture(){
-        return User.ProfileSave().build();
-    }
+
+//    public User toUserPicture(){
+//        return User.builder()
+//
+//    }
 
 }

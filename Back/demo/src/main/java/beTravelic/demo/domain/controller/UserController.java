@@ -88,7 +88,7 @@ public class UserController {
 
     @PostMapping("/image")
     @ApiOperation(value = "프로필 사진 저장", notes = "id, pw 입력")
-    public ResponseEntity<CommonResponse> userProfileSave(@RequestBody ProfileSaveRequestDto dto) throws Exception {
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(pictureService.profileSave(dto)), HttpStatus.OK);
+    public ResponseEntity<CommonResponse> userProfileSave(@RequestParam("id")String id, @RequestBody ProfileSaveRequestDto dto) throws Exception {
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(pictureService.profileSave(id, dto)), HttpStatus.OK);
     }
 }

@@ -46,7 +46,8 @@ public class PictureService {
             new RuntimeException("지원하는 사진 형식이 아닙니다");
         }
         dto.getPicture().transferTo(file);
-        user.setProfileImage(picture);
+        user.setPicture(picture);
+//        user.setProfileImage(picture);
         userRepository.save(user);
         
         return ProfileSaveResponseDto.of(picture.getRealFileName());

@@ -27,16 +27,12 @@ public class User  {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "image", nullable = true)
-    private String image;
     @Column(name = "refresh_token")
     private String refreshToken;
 
     @Embedded
     @Setter
     private Picture picture;
-    // file_name
-
 
     @Setter
     @OneToMany(mappedBy = "user")
@@ -64,7 +60,6 @@ public class User  {
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
-        this.image = "image";
     }
 
     public void setProfileImage(Picture picture){

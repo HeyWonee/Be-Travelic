@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+
 
 import { DetailInfo, DetailRecommend, MapContainer } from "../components/index";
 import "./css/PlaceDetailMain.css";
 
 function PlaceDetailMain() {
-  const place_id = 1
-  const [ place, setPlace ] = useState<DetailInfo>();
+  
+  const params = useParams()
+  console.log(params)
+  const place_id = params.place_id
 
+  const [ place, setPlace ] = useState<DetailInfo>();
   // 여행지 상세정보 GET (spring)
   useEffect(() => {
     axios
@@ -43,10 +48,11 @@ function PlaceDetailMain() {
         <div id="kakaomap">
           {place &&
             <MapContainer
-            lat={place.mapx}
-            lng={place.mapy}
+            // lat={place.mapx}
+            // lng={place.mapy}
           />}
         </div>
+        <div id="map" style={{ width: "auto", height: "50vh" }} />
       </div>
       
       {/* 추천여행지 카드 */}

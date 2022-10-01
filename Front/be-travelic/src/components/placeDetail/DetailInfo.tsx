@@ -14,9 +14,10 @@ interface DetailInfo {
   overview: string;
 }
 
-function DetailInfo( props: DetailInfo) {  
-  const { addr, title, image, score, overview } = props
-  
+function DetailInfo( props: DetailInfo) {
+  const id = ''  
+  const { placeId, addr, title, image, score, overview } = props  
+
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
@@ -29,7 +30,6 @@ function DetailInfo( props: DetailInfo) {
                 className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
                 src={image}
               />
-
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <div className="flex">
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
@@ -63,7 +63,7 @@ function DetailInfo( props: DetailInfo) {
                     }
                     return stars;
                   })()}
-                  <p>(50)</p>
+                  <p>({score})</p>
                 </div>
 
                 <p className="leading-relaxed m-1 mt-3">{overview}</p>

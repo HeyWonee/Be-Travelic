@@ -1,14 +1,10 @@
 package beTravelic.demo.domain.service;
 
 import beTravelic.demo.domain.dto.*;
-import beTravelic.demo.domain.entity.Survey;
 import beTravelic.demo.domain.exception.DuplicatedNickNameException;
 import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.exception.NoExistUserException;
-import beTravelic.demo.domain.repository.FollowRepository;
-import beTravelic.demo.domain.repository.ReviewRepository;
-import beTravelic.demo.domain.repository.SurveyRepository;
-import beTravelic.demo.domain.repository.UserRepository;
+import beTravelic.demo.domain.repository.*;
 import beTravelic.demo.global.util.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

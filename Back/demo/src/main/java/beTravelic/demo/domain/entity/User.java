@@ -27,6 +27,8 @@ public class User  {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "image", nullable = true)
+    private String image;
     @Column(name = "refresh_token")
     private String refreshToken;
 
@@ -62,6 +64,7 @@ public class User  {
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
+        this.image = "image";
     }
 
     public void setProfileImage(Picture picture){
@@ -82,6 +85,5 @@ public class User  {
     public User(Long user_id) {
         this.user_id = user_id;
     }
-
 
 }

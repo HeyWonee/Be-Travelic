@@ -45,12 +45,12 @@ function Feed( props: Feed) {
           <div className="flex-grow">
             <Link to={`/mypage/${user_id}`}>
               <h2 className="title-font font-medium ml-3">{nickname}</h2>
-              {/* <p className="text-gray-500">{place}</p> */}
             </Link>
           </div>
 
-          <FaMapMarkerAlt id="MarkIcon" />
-          <h2 className="ml-1 mr-5">장소!?</h2>
+          {/* 장소 표시하려 했으나, 데이터 없어서 빼겠습니다! */}
+          {/* <FaMapMarkerAlt id="MarkIcon" />
+          <h2 className="ml-1 mr-5">장소</h2> */}
 
           <FaRegCalendarAlt id="CalendarIcon" />
           <h2 className="ml-1 mr-3">{visited_at}</h2>

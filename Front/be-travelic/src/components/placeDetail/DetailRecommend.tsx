@@ -8,8 +8,6 @@ interface DetailRecommend {
   title: string;
 }
 
-function DetailRecommend({ title }: DetailRecommend) {
-  const [ recommendplace, setRecommendPlace ] = useState<DetailRecommendItem>();
 
   useEffect(() => {
     axios
@@ -22,17 +20,26 @@ function DetailRecommend({ title }: DetailRecommend) {
   }, [])
 
   return (
-    <div>
-      { recommendplace && <DetailRecommendItem
-        place_id={recommendplace.place_id}
-        addr={recommendplace.addr}
-        score={recommendplace.score}
-        mapx={recommendplace.mapx}
-        mapy={recommendplace.mapy}
-        title={recommendplace.title}
-        image={recommendplace.image}
-        overview={recommendplace.overview}
-       />}
+    <div className="carouselWrapper">
+      <div
+          className="carousel"
+          style={{ transform: `translateX(${move}px)` }}
+        >
+          { recommendplaces.map((place, index) => (
+            <DetailRecommendItem
+            key={index}
+            place_id={place.place_id}
+            addr={place.addr}
+            score={place.score}
+            mapx={place.mapx}
+            mapy={place.mapy}
+            title={place.title}
+            image={place.image}
+            overview={place.overview}
+            />
+          ))
+          }
+      </div>
     </div>
   )
 }

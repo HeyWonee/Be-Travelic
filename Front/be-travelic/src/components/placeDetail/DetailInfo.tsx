@@ -1,4 +1,9 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { fetchUserInfo } from "../../apis/mypage"
+
 import "../css/PlaceDetail.css"
+import Bookmark from "./Bookmark"
 
 interface DetailInfo {
   placeId: number;
@@ -16,7 +21,33 @@ interface DetailInfo {
 
 function DetailInfo( props: DetailInfo) {
 
-  const { placeId, addr, title, image, score, overview } = props  
+  const { region, placeId, addr, title, image, score, overview } = props  
+  const [ like, setLike ] = useState(false)
+  const accessToken = localStorage.getItem("accessToken");
+  // 북마크 조회 GET (spring)
+
+  // 북마크 설정 POST (spring)
+  const postLike = async() => {
+    console.log(placeId)
+    console.log(region)
+    console.log(accessToken)
+    console.log({accessToken})
+    const response = await axios.post(`http://j7d205.p.ssafy.io:8443/bookmark/`,
+    {},
+    {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+      params: {
+        place_id: placeId,
+        region_id: region
+      },
+    }
+    )
+    console.log(response)
+    setLike(!like)
+  } 
+  
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
@@ -37,20 +68,11 @@ function DetailInfo( props: DetailInfo) {
                   </h1>
 
                   {/* 북마크 버튼 */}
-                  <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                    <svg
-                      fill="red"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-5 h-5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                    </svg>
-                  </button>
-                </div>
-                
+                  <Bookmark
+                    like={like}
+                    onClick={postLike}
+                  />
+                </div>                  
                 <hr />
                 <h3 className="text-gray-900 text-xl title-font font-medium m-1 m">{addr}</h3>
 

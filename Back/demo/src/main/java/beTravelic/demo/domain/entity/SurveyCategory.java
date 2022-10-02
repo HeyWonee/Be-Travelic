@@ -25,6 +25,10 @@ public class SurveyCategory {
     @Column(name = "survey_category")
     private Long surveyCategory;
 
+    @Builder
+    public SurveyCategory(Long surveyCategory){
+        this.surveyCategory = surveyCategory;
+    }
 
     @Builder
     public SurveyCategory (User user, Long surveyCategory){

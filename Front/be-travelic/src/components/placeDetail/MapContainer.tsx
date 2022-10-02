@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 declare global {
   interface Window {
@@ -46,3 +46,4 @@ function MapContainer( props : MapContainer ){
   }
 
 export default MapContainer; 
+

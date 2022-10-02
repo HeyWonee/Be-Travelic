@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import "../css/PlaceDetail.css"
 import Bookmark from "./Bookmark"
+import Bookmark from "./Bookmark"
 
 interface DetailInfo {
   placeId: number;

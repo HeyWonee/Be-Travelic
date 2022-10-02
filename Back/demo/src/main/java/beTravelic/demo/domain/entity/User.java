@@ -61,7 +61,9 @@ public class User  {
     @Setter
     @OneToMany(mappedBy = "user")
     private List<SurveyCategory> surveyCategories = new ArrayList<>();
-
+    public void setPicture(Picture picture){
+        this.picture = picture;
+    }
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }

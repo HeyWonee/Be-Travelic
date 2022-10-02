@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -79,10 +80,11 @@ public class UserController {
 
     @PostMapping("/image")
     @ApiOperation(value = "프로필 사진 저장")
-    public ResponseEntity<CommonResponse> userProfileSave(HttpServletRequest request, @RequestBody ProfileSaveRequestDto dto) throws Exception {
+    public ResponseEntity<CommonResponse> userProfileSave(HttpServletRequest request, @RequestBody MultipartFile file) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(pictureService.profileSave(id, dto)), HttpStatus.OK);
+        pictureService.profileSave(id, file);
+        return ResponseEntity.accepted().build();
     }
 }

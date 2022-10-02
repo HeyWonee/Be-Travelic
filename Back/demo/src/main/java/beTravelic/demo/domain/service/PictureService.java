@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,12 +28,12 @@ public class PictureService {
 
     @Value("${path.image:/image/}")
     private String IMAGE_PATH;
-    public ProfileSaveResponseDto profileSave(String id, ProfileSaveRequestDto dto) throws Exception{
+    public void profileSave(String id, MultipartFile proFile) throws Exception{
         Picture picture = null;
         User user = userRepository.findUserById(id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자 없음"));
         String fileName = UUID.randomUUID().toString();
-        String contentType = dto.getPicture().getContentType();
+        String contentType = proFile.getContentType();
         File file = null;
         if(contentType.contains("image/jpeg")){
             file = new File(IMAGE_PATH + fileName + ".jpg");
@@ -46,12 +47,11 @@ public class PictureService {
         }else{
             new RuntimeException("지원하는 사진 형식이 아닙니다");
         }
-        dto.getPicture().transferTo(file);
-        user.setPicture(picture);
+        proFile.transferTo(file);
+        user.setProfile(picture);
+//        user.setPicture(picture);
 //        user.setProfileImage(picture);
         userRepository.save(user);
-
-        return ProfileSaveResponseDto.of(picture.getRealFileName());
     }
 
     public byte[] getUserProfileImage(String id) throws IOException {

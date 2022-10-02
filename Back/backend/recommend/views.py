@@ -302,7 +302,7 @@ def place_recommend(request,user_id,category):
                         charset='utf8')
 
             cursor=conn.cursor()
-            sql = "truncate recommendplace"
+            sql = "truncate table recommendplace"
             cursor.execute(sql)
             
 

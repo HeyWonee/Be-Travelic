@@ -40,7 +40,8 @@ function PlaceDetailMain() {
           overview={place.overview}
         />}
       </div>
-
+      
+      {/* 카카오맵 */}
       <div className="container px-5 mx-auto">
         <div id="kakaomap">
           {place &&

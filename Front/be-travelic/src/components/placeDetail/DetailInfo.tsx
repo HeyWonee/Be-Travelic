@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { fetchUserInfo } from "../../apis/mypage"
 
 import "../css/PlaceDetail.css"
 import Bookmark from "./Bookmark"
@@ -24,7 +23,9 @@ function DetailInfo( props: DetailInfo) {
   const { region, placeId, addr, title, image, score, overview } = props  
   const [ like, setLike ] = useState(false)
   const accessToken = localStorage.getItem("accessToken");
-  // 북마크 조회 GET (spring)
+
+  // 북마크 state 조회 GET (spring) => state가 필요합니다
+
 
   // 북마크 설정 POST (spring)
   const postLike = async() => {
@@ -46,8 +47,7 @@ function DetailInfo( props: DetailInfo) {
     )
     console.log(response)
     setLike(!like)
-  } 
-  
+  }
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">

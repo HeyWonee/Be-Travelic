@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 declare global {
   interface Window {
@@ -10,7 +10,6 @@ interface MapContainer {
   mapx: string;
   mapy: string;
 }
-
 
 function MapContainer( props : MapContainer ){
 

@@ -245,7 +245,7 @@
 #                 info_list.append(tuple([j,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
 
 #     #return info_list
-#     #print(info_list)
+#     print(info_list)
 #     df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
 #     #print(df)
 

@@ -3,39 +3,42 @@ package beTravelic.demo.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
-@Entity
-@Getter
+import java.util.List;
+
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-@ToString
+@Embeddable
 @Table(name="picture")
 public class MypagePicture {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "picture_id")
-    private Long picture_id;
+    private Long pictureId;
 
-    //  유저
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToMany(mappedBy = "picture")
+//    @JoinColumn(name = "user_id")
+    private List<User> user;
 
-    //  지역
     @OneToOne
     @JoinColumn(name = "region_id")
     private Region region;
 
-    //  이미지는 서버에 저장
-    //  여기에는 서버의 이미지 주소 저장
-    //  대표 이미지
-    @Column(name="image")
-    private String image;
+    // file_name
+    @Column(name = "file_name")
+    private String fileName;
 
-    @Builder
-    public MypagePicture(User user, Region region, String image){
-        this.user = user;
-        this.region  = region;
-        this.image = image;
-    }
+    // real_file_name
+    @Column(name = "real_file_name")
+    private String realFileName;
+
+
+
+//    @Builder
+//    public MypagePicture(String realFileName, String fileName, String region){
+//        this.region = region;
+//        this.fileName = fileName;
+//        this.realFileName = realFileName;
+//    }
 }

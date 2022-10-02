@@ -1,7 +1,7 @@
 package beTravelic.demo.domain.dto;
 
-import beTravelic.demo.domain.entity.Follow;
-import beTravelic.demo.domain.entity.Survey;
+//import beTravelic.demo.domain.entity.Survey;
+import beTravelic.demo.domain.entity.SurveyKeyword;
 import beTravelic.demo.domain.entity.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -22,20 +22,20 @@ public class UserInfoResponseDto {
     private String pw;
     private String nickname;
     private String email;
-    private String keyword;
+    private List<String> surveyKeyword;
     private int followerCnt;
     private int followingCnt;
     private int reviewCnt;
 
 
-    public static UserInfoResponseDto ofUser(User user, Survey survey){
+    public static UserInfoResponseDto ofUser(User user, List<String> surveyKeywordList){
         return UserInfoResponseDto.builder()
                 .user_id(user.getUser_id())
                 .id(user.getId())
                 .pw(user.getPw())
                 .nickname(user.getNickname())
                 .email(user.getEmail())
-                .keyword(survey.getSurveykeyword())
+                .surveyKeyword(surveyKeywordList)
                 .build();
     }
 

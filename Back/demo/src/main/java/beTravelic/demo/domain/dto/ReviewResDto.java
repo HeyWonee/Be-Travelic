@@ -20,20 +20,23 @@ public class ReviewResDto {
 
     private Long place;
 
-    private Long user;
+    private String user;
 
     private Long region;
 
     private String contents;
 
     // 이미지 주소
-    private String image;
+    private String fileName;
+    private String realFileName;
 
     private Long score;
 
     private Date created_at;
 
     private String visited_at;
+
+    private int reviewLike;
 
 //    @Setter
 //    List<CommentResponseDto> comments;
@@ -42,13 +45,15 @@ public class ReviewResDto {
         return ReviewResDto.builder()
                 .reviewId(review.getReviewId())
                 .place(review.getPlace().getPlaceId())
-                .user(review.getUser().getUser_id())
+                .user(review.getUser().getId())
                 .region(review.getRegion().getRegionId())
                 .contents(review.getContents())
-                .image(review.getImage())
+                .fileName(review.getFileName())
+                .realFileName(review.getRealFileName())
                 .score(review.getScore())
                 .created_at(review.getCreated_at())
                 .visited_at(review.getVisited_at())
+                .reviewLike(review.getReviewLike())
                 .build();
     }
 //    public static ReviewResDto of(Review review) {
@@ -69,10 +74,11 @@ public class ReviewResDto {
     public ReviewResDto (Review review) {
         this.reviewId = review.getReviewId();
         this.place = review.getPlace().getPlaceId();
-        this.user = review.getUser().getUser_id();
+        this.user = review.getUser().getId();
         this.region = review.getRegion().getRegionId();
         this.contents = review.getContents();
-        this.image = review.getImage();
+        this.fileName = review.getFileName();
+        this.realFileName = review.getRealFileName();
         this.score = review.getScore();
         this.created_at = review.getCreated_at();
         this.visited_at = review.getVisited_at();

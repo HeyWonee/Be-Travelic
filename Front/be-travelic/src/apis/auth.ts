@@ -10,10 +10,9 @@ interface Register {
   nickname?: string;
   image?: string;
   email: string;
-  password: string;
+  pw: string;
+  id?: string;
 }
-
-const baseUrl = "http://j7d205.p.ssafy.io:8443";
 
 export interface Winners {
   keyword_name: string[];
@@ -23,14 +22,28 @@ export interface Winners {
 export const login = async (data: Register) => {
   const url = "/users/login";
 
+  const { email, pw } = data;
+  const id = email;
+
   try {
     const res = await springAxios({
       method: "post",
       url,
-      data,
+      data: {
+        id,
+        pw,
+      },
     });
-    console.log(res);
-    return res.data;
+
+    djangoAxios.defaults.headers.common[
+      "Authorization"
+    ] = `${res.data.data.accessToken}`;
+    springAxios.defaults.headers.common[
+      "Authorization"
+    ] = `${res.data.data.accessToken}`;
+
+    console.log(res, "response");
+    return res.data.data;
   } catch (error) {
     console.log(error);
   }
@@ -38,8 +51,9 @@ export const login = async (data: Register) => {
 
 export const register = async (data: Register) => {
   console.log("회원가입요청");
+  console.log(data);
 
-  const url = "/users";
+  const url = `/users`;
 
   try {
     const res = await springAxios({
@@ -48,20 +62,34 @@ export const register = async (data: Register) => {
       data,
     });
 
-    console.log(res.data);
+    console.log(res.data.data);
 
-    return res.data;
+    djangoAxios.defaults.headers.common[
+      "Authorization"
+    ] = `${res.data.data.accessToken}`;
+    springAxios.defaults.headers.common[
+      "Authorization"
+    ] = `${res.data.data.accessToken}`;
+
+    return res.data.data;
   } catch (error) {
     const err = error as AxiosError;
     console.log(err.response);
+    console.log(err);
+
     console.log("에러?");
   }
 };
 
-export const getMemberId = async () => {
-  const jwt = localStorage.getItem("token")!;
-  const decodedJwt: any = jwt_decode(jwt);
-  const memberId = decodedJwt?.memberId;
+export const getMemberId = async (token: string) => {
+  console.log(token);
+
+  const decodedJwt: any = jwt_decode(token);
+  console.log(decodedJwt, 'decoded');
+
+  const memberId = decodedJwt?.user_id;
+  console.log('decoded id', memberId);
+  
   return memberId;
 };
 
@@ -80,6 +108,6 @@ export const fetchSurvey = async (data: Winners, userId: any) => {
   }
 };
 
-export const refresh = async (refreshToken:string) => {
+export const refresh = async (refreshToken: string) => {
   // 추후 작성
-}
+};

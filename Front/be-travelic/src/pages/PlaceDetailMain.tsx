@@ -5,7 +5,6 @@ import axios from "axios";
 
 import { DetailInfo, DetailRecommend, MapContainer } from "../components/index";
 import "./css/PlaceDetailMain.css";
-import { pl } from "date-fns/locale";
 
 function PlaceDetailMain() {
   
@@ -62,7 +61,7 @@ function PlaceDetailMain() {
             </div>
           </div>
 
-          <div className="flex flex-wrap" id="DetailRecommendContainer">
+          <div id="DetailRecommendContainer">
             {place && <DetailRecommend
               title={place.title}
              />}

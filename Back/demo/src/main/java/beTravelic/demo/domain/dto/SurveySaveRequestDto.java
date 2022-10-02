@@ -2,30 +2,29 @@ package beTravelic.demo.domain.dto;
 
 import beTravelic.demo.domain.entity.*;
 import beTravelic.demo.domain.service.UserService;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SurveySaveRequestDto {
 
-//    private String keyword ;
-//    List<SurveyKeywordDto> keyword;
-//    List<SurveyCategoryDto> category;
-    private String keyword;
-    private Integer category;
+//    private User user;
+    private ArrayList<String> keywords;
+    private ArrayList<Long> categories;
 
 
-    public Survey toSurveyEntity(){
-        return Survey.builder()
-                .survey_keyword(this.keyword)
-                .survey_category(this.category)
-                .build();
+//    public SurveyKeyword toSurveKeywordEntity(){
+//           return  SurveyKeyword.builder()
+//                   .surveyKeyword(this.keyword)
+//                    .user(this.user)
+//                    .build();
+
     }
 //    public List<Survey> toSurveyEntity(){
 //        List<Survey> surveys = new ArrayList<>();
@@ -37,4 +36,4 @@ public class SurveySaveRequestDto {
 //        }
 //        return surveys;
 //    }
-}
+

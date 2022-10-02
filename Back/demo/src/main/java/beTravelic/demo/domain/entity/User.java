@@ -27,10 +27,12 @@ public class User  {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "image", nullable = true)
-    private String image;
     @Column(name = "refresh_token")
     private String refreshToken;
+
+    @Embedded
+    @Setter
+    private Picture picture;
 
 //    @Embedded
 //    @Setter
@@ -52,6 +54,14 @@ public class User  {
     @OneToMany(mappedBy = "user")
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private List<SurveyKeyword> surveyKeywords = new ArrayList<>();
+
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private List<SurveyCategory> surveyCategories = new ArrayList<>();
+
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }
@@ -62,12 +72,13 @@ public class User  {
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
-        this.image = "image";
+//        this.image = "image";
     }
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {
         this.user_id = user_id;
     }
+
 
 }

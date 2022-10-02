@@ -1,15 +1,20 @@
 package beTravelic.demo.domain.dto;
 
-import beTravelic.demo.domain.entity.Survey;
-import com.nimbusds.jose.crypto.impl.PRFParams;
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.List;
+
+@Getter
+@Setter
+@ToString
 public class SurveyKeywordDto {
 
-    private String content;
+    private List<String> content;
 
-    public Survey toEntity(){
-        return Survey.builder().survey_keyword(this.content).build();
-    }
+//    public SurveyKeyword toEntity(){
+//        return SurveyKeyword.builder().survey_keyword(this.content).build();
+//    }
 }

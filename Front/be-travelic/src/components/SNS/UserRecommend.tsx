@@ -32,7 +32,7 @@ function UserRecommend() {
           <div id="UserRecommendCardHeader" className="justify-content-center align-content-center item-center">
                 <h2 className="text-center text-gray-900 m-3">다른 사용자 추천 🚀</h2>
             </div>
-            <div id="UserRecommendCardBody">
+            <div id="UserRecommendCardBody" key="{user.recommend_user_id}">
               {userRecommends.map((user, index) => (
               <div>
                   <UserRecommendItem

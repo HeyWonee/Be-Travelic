@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 import "../css/PlaceDetail.css"
 import Bookmark from "./Bookmark"
-import Bookmark from "./Bookmark"
 
 interface DetailInfo {
   placeId: number;
@@ -25,7 +24,7 @@ function DetailInfo( props: DetailInfo) {
   const [ like, setLike ] = useState(false)
   const accessToken = localStorage.getItem("accessToken");
 
-  // 북마크 state 조회 GET (spring) => state가 필요합니다
+  // 북마크 state 조회 GET (spring) => state 필요
 
 
   // 북마크 설정 POST (spring)
@@ -33,7 +32,6 @@ function DetailInfo( props: DetailInfo) {
     console.log(placeId)
     console.log(region)
     console.log(accessToken)
-    console.log({accessToken})
     const response = await axios.post(`http://j7d205.p.ssafy.io:8443/bookmark/`,
     {},
     {

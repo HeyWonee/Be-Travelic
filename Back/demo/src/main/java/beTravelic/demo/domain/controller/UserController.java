@@ -71,14 +71,14 @@ public class UserController {
     public ResponseEntity<?> checkEmail(@PathVariable("email") String email) throws Exception {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.checkEmail(email)), HttpStatus.OK);
     }
-    @GetMapping(value = "/image", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    @ApiOperation(value = "프로필 사진 받기")
-    public byte[] userProfileImage(HttpServletRequest request) throws Exception {
-        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-        String id = (String) request.getAttribute("id");
-        return pictureService.getUserProfileImage(id);
-    }
+//    @GetMapping(value = "/image", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_PNG_VALUE})
+//    @ApiOperation(value = "프로필 사진 받기")
+//    public byte[] userProfileImage(HttpServletRequest request) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+//        return pictureService.getUserProfileImage(id);
+//    }
 //
 //    @PostMapping("/image")
 //    @ApiOperation(value = "프로필 사진 저장")
@@ -90,16 +90,16 @@ public class UserController {
 //        return ResponseEntity.accepted().build();
 //    }
 
-    @PostMapping("gcs/upload")
+    @PostMapping("profile/upload")
     public ResponseEntity localUploadToStorage(HttpServletRequest request, @RequestBody MultipartFile file) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
-        Blob fileFromGCS = pictureService.uploadFileToGCS(id, file);
+        String fileFromGCS = pictureService.uploadFileToGCS(id, file);
         return ResponseEntity.ok(fileFromGCS.toString());
     }
 
-    @GetMapping(value = "gcs/download")
+    @GetMapping(value = "profile/download")
     @ApiOperation(value = "프로필 사진 받기")
     public String getImage(HttpServletRequest request) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];

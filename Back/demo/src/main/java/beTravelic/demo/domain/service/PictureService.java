@@ -37,7 +37,7 @@ public class PictureService {
     }
     @Value("${path.image:/image/}")
     private String IMAGE_PATH;
-    public Blob uploadFileToGCS(String id, MultipartFile proFile) throws IOException {
+    public String uploadFileToGCS(String id, MultipartFile proFile) throws IOException {
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\Users\\jyh64\\civil-forge-364402-3fe287e0860c.json"));
 
 //        String keyFileName = "civil-forge-364402-3fe287e0860c.json";
@@ -81,8 +81,8 @@ public class PictureService {
 
         Blob blob = storage.createFrom(blobInfo, new FileInputStream(convertFile));
 
-        return blob;
-//        return blobInfo.getMediaLink();
+//        return blob;
+        return blob.getMediaLink();
     }
     public String getFileToGCS(String id) throws IOException {
         User user = userRepository.findUserById(id).orElseThrow(() ->
@@ -90,12 +90,12 @@ public class PictureService {
         String profileUrl = "https://storage.googleapis.com/be_travelic/" + user.getPicture().getRealFileName();
         return profileUrl;
     }
-        public byte[] getUserProfileImage(String id) throws IOException {
-        User user = userRepository.findUserById(id).orElseThrow(() ->
-                new NoExistUserException());
-        InputStream inputStream = new FileInputStream("https://storage.googleapis.com/be_travelic/" + user.getPicture().getRealFileName());
-        return IOUtils.toByteArray(inputStream);
-    }
+//        public byte[] getUserProfileImage(String id) throws IOException {
+//        User user = userRepository.findUserById(id).orElseThrow(() ->
+//                new NoExistUserException());
+//        InputStream inputStream = new FileInputStream("https://storage.googleapis.com/be_travelic/" + user.getPicture().getRealFileName());
+//        return IOUtils.toByteArray(inputStream);
+//    }
 
 //    @Value("${path.image:/image/}")
 //    private String IMAGE_PATH;

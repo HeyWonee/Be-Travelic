@@ -24,7 +24,7 @@ interface FeedItem {
 }
 
 function FeedItem( props: FeedItem ) {
-  const { contents, file_name, file_name_user, nickname, visited_at, user_id, review_id } = props
+  const { contents, file_name, file_name_user, real_file_name, real_file_name_user, nickname, visited_at, user_id, review_id } = props
 
   // 모달창
   // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
@@ -44,7 +44,7 @@ function FeedItem( props: FeedItem ) {
           <img
             alt=""
             className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"
-            src={file_name_user}
+            src={real_file_name_user}
           />
           <div className="flex-grow">
             <Link to={`/mypage/${user_id}`}>
@@ -63,7 +63,7 @@ function FeedItem( props: FeedItem ) {
 
       <div id="FeedCardBody">
         <div id="FeedImageContainer">
-          <img id="FeedImage" className="" alt="SNSimage" src={file_name} />
+          <img id="FeedImage" className="" alt="SNSimage" src={real_file_name} />
         </div>
 
         {/* 좋아요 버튼 => 수정 예정 */}

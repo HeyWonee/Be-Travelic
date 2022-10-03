@@ -13,7 +13,7 @@ function Feed( { user_id }: UserId ) {
 
   // Feed GET (django)
   const getFeed = async() => {
-    console.log('props', user_id)
+    console.log('피드 props', user_id)
     const response = await (await axios.get(`http://j7d205.p.ssafy.io:8081/api/v1/feed_recommend/${user_id}`))
     console.log('feed', response.data)
     setFeeds(response.data)
@@ -26,14 +26,13 @@ function Feed( { user_id }: UserId ) {
  
   return (
     <div>
-      {feeds.map((feed, index) => (
+      {feeds.map((feed, idx) => (
       <div
         id="FeedContainer"
-        key="{feed.review_id}"
+        key="{idx}"
         className="item-center justify-content"
       >
         <FeedItem
-          key={index}
           contents={feed.contents}
           created_at={feed.created_at}
           file_name={feed.file_name}

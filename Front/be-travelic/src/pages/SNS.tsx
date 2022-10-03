@@ -7,7 +7,6 @@ import "./css/SNS.css";
 
 function SNS() {
 
-
   const [ userId, setUserId ] = useState();
   const accessToken = localStorage.getItem("accessToken");
 
@@ -46,7 +45,11 @@ function SNS() {
         
         {/* 팔로우 추천 */}
         <div id="UserRecommend">
-          <UserRecommend />
+          { userId && 
+            <UserRecommend
+            user_id = {userId}
+            />
+          }
         </div>
       </div>
   );

@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-@Embeddable
+@Entity
 @Table(name="picture")
 public class MypagePicture {
 
@@ -17,9 +17,9 @@ public class MypagePicture {
     @Column(name = "picture_id")
     private Long pictureId;
 
-    @OneToMany(mappedBy = "picture")
-//    @JoinColumn(name = "user_id")
-    private List<User> user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToOne
     @JoinColumn(name = "region_id")
@@ -33,12 +33,16 @@ public class MypagePicture {
     @Column(name = "real_file_name")
     private String realFileName;
 
+    @Builder
+    public MypagePicture(String realFileName, String fileName, Region region, User user){
+        this.user = user;
+        this.region = region;
+        this.fileName = fileName;
+        this.realFileName = realFileName;
+    }
 
-
-//    @Builder
-//    public MypagePicture(String realFileName, String fileName, String region){
-//        this.region = region;
-//        this.fileName = fileName;
-//        this.realFileName = realFileName;
-//    }
+    public void updateMypagePicture(String realFileName, String fileName){
+        this.realFileName = realFileName;
+        this.fileName = fileName;
+    }
 }

@@ -1,5 +1,6 @@
 package beTravelic.demo.domain.entity;
 
+import beTravelic.demo.domain.service.PictureService;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,9 +35,6 @@ public class User  {
     @Setter
     private Picture picture;
 
-//    @Embedded
-//    @Setter
-//    private MypagePicture mypagePicture;
 
     @Setter
     @OneToMany(mappedBy = "user")
@@ -64,6 +62,10 @@ public class User  {
 
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
+    }
+
+    public void setProfile(Picture picture) {
+        this.picture = picture;
     }
     @Builder
     public User(String pw, String id, String nickname, String email

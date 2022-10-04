@@ -37,9 +37,6 @@ public class User  {
 
 
     @Setter
-    private MypagePicture mypagePicture;
-
-    @Setter
     @OneToMany(mappedBy = "user")
     private List<UserPlace> userPlaces = new ArrayList<>();
 

@@ -13,7 +13,7 @@ function Feed( { user_id }: UserId ) {
 
   // Feed GET (django)
   const getFeed = async() => {
-    console.log('피드 props', user_id)
+    console.log('props', user_id)
     const response = await (await axios.get(`http://j7d205.p.ssafy.io:8081/api/v1/feed_recommend/${user_id}`))
     console.log('feed', response.data)
     setFeeds(response.data)
@@ -25,29 +25,30 @@ function Feed( { user_id }: UserId ) {
 
  
   return (
-    <div>
-      {feeds.map((feed, idx) => (
-      <div
-        id="FeedContainer"
-        key="{idx}"
-        className="item-center justify-content"
-      >
-        <FeedItem
-          contents={feed.contents}
-          created_at={feed.created_at}
-          file_name={feed.file_name}
-          file_name_user={feed.file_name_user}
-          nickname={feed.nickname}
-          place_id={feed.place_id}
-          real_file_name={feed.real_file_name}
-          real_file_name_user={feed.real_file_name_user}
-          recommend_user_id={feed.recommend_user_id}
-          review_id={feed.review_id}
-          user_id={feed.user_id}
-          visited_at={feed.visited_at}
-        />
-      </div>
-    ))}
+    <div id="Feed">
+      {feeds.map((feed, index) => (
+        <div
+          id="FeedContainer"
+          key="{feed.review_id}"
+          className="item-center justify-content"
+        >
+          <FeedItem
+            key={index}
+            contents={feed.contents}
+            created_at={feed.created_at}
+            file_name={feed.file_name}
+            file_name_user={feed.file_name_user}
+            nickname={feed.nickname}
+            place_id={feed.place_id}
+            real_file_name={feed.real_file_name}
+            real_file_name_user={feed.real_file_name_user}
+            recommend_user_id={feed.recommend_user_id}
+            review_id={feed.review_id}
+            user_id={feed.user_id}
+            visited_at={feed.visited_at}
+          />
+        </div>
+      ))}
     </div>
   );
 }

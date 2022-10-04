@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Like {
   review_id: number;
@@ -11,10 +11,25 @@ function Like( props: Like ) {
   const accessToken = localStorage.getItem("accessToken");
 
   // 좋아요 state 조회 GET (spring) => state가 필요한데, 데이터에 없습니다.
-
+  useEffect(() => {
+    const getLike = async() => {
+      console.log(review_id)
+      const response = await axios.get(`http://j7d205.p.ssafy.io:8443/like/${review_id}`,
+      {
+        headers: {
+          Authorization: `${accessToken}`,
+        },
+      }
+      )
+      if (response.data === 'true') setlike(true)
+      console.log('like', response.data)
+    }
+    getLike()
+  },[])
 
   // 좋아요 설정 POST (spring)
   const postLike = async() => {
+    console.log('현재상태', like)
     console.log(review_id)
     console.log(accessToken)
     const response = await axios.post(`http://j7d205.p.ssafy.io:8443/feed/like`,
@@ -32,9 +47,9 @@ function Like( props: Like ) {
     setlike(!like)
   }
 
-
   return (
-    <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-2" onClick={postLike}>
+    <div>
+      <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-2" onClick={postLike}>
       {like ? (
         <svg
           fill="red"
@@ -59,6 +74,7 @@ function Like( props: Like ) {
         </svg>
       )}
     </button>
+    </div>
   );
 }
 

@@ -91,7 +91,10 @@ function FeedItem( props: FeedItem ) {
               </svg>
             </button>
 
-            <CommentsModal open={modalOpen} close={closeModal}></CommentsModal>
+            <CommentsModal
+              open={modalOpen}
+              close={closeModal}
+              review_id={review_id}/>
           </div>
         </div>
 

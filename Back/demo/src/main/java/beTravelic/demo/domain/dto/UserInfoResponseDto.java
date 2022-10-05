@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @Data
@@ -26,7 +27,7 @@ public class UserInfoResponseDto {
     private int followerCnt;
     private int followingCnt;
     private int reviewCnt;
-    private String realfileName;
+
 
     public static UserInfoResponseDto ofUser(User user, List<String> surveyKeywordList){
         return UserInfoResponseDto.builder()
@@ -36,7 +37,6 @@ public class UserInfoResponseDto {
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .surveyKeyword(surveyKeywordList)
-                .realfileName("https://storage.googleapis.com/be_travelic/"+user.getPicture().getRealFileName())
                 .build();
     }
 

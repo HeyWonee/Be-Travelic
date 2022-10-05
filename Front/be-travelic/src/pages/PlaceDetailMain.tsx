@@ -37,7 +37,7 @@ function PlaceDetailMain() {
   }, []);
 
   return (
-    <div>
+    <div id="placeDetailMain">
       <div>
         {/* 여행지 상세정보 */}
         {place && (
@@ -56,12 +56,12 @@ function PlaceDetailMain() {
           />
         )}
       </div>
-      <KakaoShare
+      {/* <KakaoShare
         placeId={place?.placeId}
         image={place?.image}
         title={place?.title}
         overview={place?.overview}
-      />
+      /> */}
 
       <div className="container px-5 mx-auto">
         <div id="kakaomap">
@@ -72,7 +72,7 @@ function PlaceDetailMain() {
       {/* 추천여행지 카드 */}
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-wrap w-full mb-10">
+          <div className="flex flex-wrap w-full">
             <div className="w-full mb-6 lg:mb-0">
               <h1 className="sm:text-3xl text-2xl text-center font-medium title-font mb-4 text-gray-900">
                 다른 여행지는 어때요? 😎

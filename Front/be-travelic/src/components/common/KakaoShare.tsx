@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 
+
 interface Kakao {
   placeId?: number;
   image?: string;
@@ -38,13 +39,12 @@ const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
   }, []);
 
   return (
-    <div>
-      <button className="kakao">
+    <div className="float-right">
+      <button className="kakaobutton">
         <img
-          src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+          src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
           alt="카카오링크 보내기 버튼"
-        />
-        공유하기
+        />공유하기
       </button>
     </div>
   );

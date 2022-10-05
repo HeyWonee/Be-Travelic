@@ -25,8 +25,9 @@ public class ReviewResDto {
 
     private String contents;
 
-    // 이미지 주소
+    // 이미지 주소 : realFileName
     private String image;
+    // 파일 네임
     private String fileName;
 
 

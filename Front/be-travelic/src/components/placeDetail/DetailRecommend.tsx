@@ -29,7 +29,7 @@ function DetailRecommend({ title }: DetailRecommend) {
     getRecommendPlace()
   }, [])
 
-  // 캐러셀 설정
+  // 캐러셀 설정 설정
   const settings = {
     dots: true,
     infinite: true, // 무한 스와이프

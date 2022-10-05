@@ -1,10 +1,169 @@
-import React, { SetStateAction, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  SetStateAction,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import * as d3 from "d3";
 import korea from "../../assets/geojson/korea.json";
 import "../css/MyMap.css";
 import { useEffect } from "react";
 import logo from "../../assets/image/logo.png";
-
+import {
+  fetchRegionalBookMarks,
+  fetchRegionalVisitedPlaces,
+} from "../../apis/mypage";
+import { useParams } from "react-router-dom";
+import { PlaceData } from "./PlaceContainer";
+import { Display } from "../../pages/MyPage";
+import { getMapPothos } from "../../apis/mypage";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+const mapInfo = [
+  {
+    id: 0,
+    x: 0,
+    y: 0,
+    width: "100%",
+    height: "100%",
+  },
+  {
+    id: 1,
+    x: 0,
+    y: 30,
+    width: "100%",
+    height: "100%",
+    name: "서울특별시",
+  },
+  {
+    id: 2,
+    x: 20,
+    y: 200,
+    width: "100%",
+    height: "100%",
+    name: "부산광역시",
+  },
+  {
+    id: 3,
+    x: 20,
+    y: 160,
+    width: "100%",
+    height: "100%",
+    name: "대구광역시",
+  },
+  {
+    id: 4,
+    x: 0,
+    y: -10,
+    width: "100%",
+    height: "100%",
+    name: "인천광역시",
+  },
+  {
+    id: 5,
+    x: 0,
+    y: 170,
+    width: "100%",
+    height: "100%",
+    name: "광주광역시",
+  },
+  {
+    id: 6,
+    x: 0,
+    y: 100,
+    width: "100%",
+    height: "100%",
+    name: "대전광역시",
+  },
+  {
+    id: 7,
+    x: 30,
+    y: 190,
+    width: "100%",
+    height: "100%",
+    name: "울산광역시",
+  },
+  {
+    id: 8,
+    x: 0,
+    y: 120,
+    width: "100%",
+    height: "100%",
+    name: "세종특별자치시",
+  },
+  {
+    id: 9,
+    x: 0,
+    y: 30,
+    width: "100%",
+    height: "100%",
+    name: "경기도",
+  },
+  {
+    id: 10,
+    x: 20,
+    y: 5,
+    width: "100%",
+    height: "100%",
+    name: "강원도",
+  },
+  {
+    id: 11,
+    x: 0,
+    y: 50,
+    width: "100%",
+    height: "100%",
+    name: "충청북도",
+  },
+  {
+    id: 12,
+    x: -80,
+    y: 150,
+    width: "250px",
+    height: "250px",
+    name: "충청남도",
+  },
+  {
+    id: 13,
+    x: 0,
+    y: 100,
+    width: "100%",
+    height: "100%",
+    name: "전라북도",
+  },
+  {
+    id: 14,
+    x: -50,
+    y: 300,
+    width: "100%",
+    height: "100%",
+    name: "전라남도",
+  },
+  {
+    id: 15,
+    x: 100,
+    y: 115,
+    width: "100%",
+    height: "100%",
+    name: "경상북도",
+  },
+  {
+    id: 16,
+    x: 20,
+    y: 120,
+    width: "100%",
+    height: "100%",
+    name: "경상남도",
+  },
+  {
+    id: 17,
+    x: 0,
+    y: 200,
+    width: "100%",
+    height: "100%",
+    name: "제주도",
+  },
+];
 const dummyData = [
   {
     id: 1,
@@ -76,22 +235,55 @@ const dummyData = [
   },
 ];
 
-const MyMap:React.FC<{
-  setShowModal: React.Dispatch<SetStateAction<boolean>>
-}> = ({setShowModal}) => {
+const MyMap: React.FC<{
+  openTab: number;
+  setDisplayedPlace: React.Dispatch<SetStateAction<PlaceData[]>>;
+
+  setShowModal: React.Dispatch<SetStateAction<boolean>>;
+  displays: Display[];
+  setRegionId: React.Dispatch<SetStateAction<number>>;
+  changes: boolean;
+  setDisplays: React.Dispatch<SetStateAction<Display[]>>;
+}> = ({
+  setShowModal,
+  displays,
+  setRegionId,
+  changes,
+  setDisplays,
+  openTab,
+  setDisplayedPlace,
+}) => {
   const initialScale = 5500; //확대시킬 값
   const initialX = -12000; //초기 위치값 X
   const initialY = 4150; //초기 위치값 Y
-  const [displays, setDisplays] = useState(dummyData);
+  console.log(displays, "여기는 mymap");
+  const didMount = useRef(false);
+  const { id } = useParams();
+  const userId = useSelector((state: RootState) => state.auth.userId);
+
+  // const [displays, setDisplays] = useState(dummyData);
   // const path = d3.select("path");
+  console.log(openTab);
 
   // 전역 변수로 timer를 선언하여 if state에서 접근할 수 있게 함.
-  let timer:any;
+  let timer: any;
 
-  const fetchRecordsHandler = (e:any) => {
+  const fetchRecordsHandler = (e: any) => {
+    const userId = String(id);
+    const regionId = e.target.__data__.properties.id;
+    let res;
+
     if (e.type == "mouseover") {
-      timer = setTimeout(() => {
-        console.log("지역", e.target.__data__.properties.name);
+      timer = setTimeout(async () => {
+        console.log("지역", e.target.__data__.properties.id);
+        if (openTab === 1) {
+          res = await fetchRegionalVisitedPlaces(regionId, userId);
+          console.log(res, "지역 방문장소");
+        } else {
+          res = await fetchRegionalBookMarks(regionId, userId);
+          console.log(res, "지역 북마크");
+        }
+        setDisplayedPlace(res);
       }, 3000);
     }
 
@@ -101,34 +293,36 @@ const MyMap:React.FC<{
     }
   };
 
-  const areaFn = (d:any) => {
-    console.log(d);
+  const areaFn = (d: any) => {
     const code = d.properties.id;
-    console.log(code);
-    //console.log(code);
-    return code;
+    return "code" + code;
   };
 
-  const fileFn = (d:any) => {
+  const fileFn = (d: any) => {
     const code = d.properties.id;
     // const imgfile = "data:image/png;base64," + d[code].file;
     // console.log("imgfile 받음?", d[code].file);
-
-    const imgfile = "";
-
-    return logo;
-  };
-
-  const fillFn = (d:any) => {
-    // const pcolor = "#aaa";
     const id = d.properties.id;
     const fill = "url(#" + id + ")";
+
     return fill;
   };
 
-  const showModalHandler = (e:any) => {
-    console.log(e.target.__data__.properties);
-    console.log(e);
+  const fillFn = (d: any) => {
+    const pcolor = "white";
+    // const id = d.properties.id;
+    // const fill = "url(#" + id + ")";
+    return pcolor;
+  };
+
+  const showModalHandler = (e: any) => {
+    console.log(typeof id, typeof userId);
+
+    if (id !== String(userId)) {
+      return;
+    }
+
+    setRegionId(e.target.__data__.properties.id);
     setShowModal(true);
   };
 
@@ -145,7 +339,7 @@ const MyMap:React.FC<{
       .attr("height", 1000);
 
     const g = svg.append("g");
-    const path:any = d3.geoPath().projection(projection);
+    const path: any = d3.geoPath().projection(projection);
 
     // 맵 그리기
     g.selectAll("path")
@@ -155,29 +349,42 @@ const MyMap:React.FC<{
       .attr("d", path)
       .attr("class", "countries")
       .attr("fill", fillFn)
+      .attr("id", areaFn)
       .on("click", showModalHandler)
       .on("mouseover", fetchRecordsHandler)
       .on("mouseleave", fetchRecordsHandler);
 
     const defs = svg.append("defs");
 
+    const initialPhotos = async () => {
+      const res = await getMapPothos();
+      console.log(res);
+      setDisplays(res);
+      res.map((display: Display) => {
+        g.select(`#code${display.regionId}`).attr("fill", fileFn);
+
+        if (display.image !== null) {
+          defs
+            .append("pattern")
+            .attr("id", display.regionId)
+            .attr("patternUnits", "userSpaceOnUse")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("x", 0)
+            .attr("y", 0)
+            .append("image")
+            .attr("xlink:href", display.image)
+            .attr("width", "500px")
+            .attr("height", "500px")
+            .attr("x", mapInfo[display.regionId].x)
+            .attr("y", mapInfo[display.regionId].y);
+        }
+      });
+    };
+    initialPhotos();
+
     // 사진 넣기
-    displays.map((display) => {
-      if (display.url) {
-        defs
-          .append("pattern")
-          .attr("id", display.id)
-          .attr("patternUnits", "userSpaceOnUse")
-          .attr("width", "100%")
-          .attr("height", "100%")
-          .append("svg:image")
-          .attr("xlink:href", display.url)
-          // .attr("width", "520px")
-          // .attr("height", "500px")
-          .attr("x", 30)
-          .attr("y", -50);
-      }
-    });
+    // });
     // defs
     //   .append("pattern")
     //   .attr("id", "5")
@@ -236,9 +443,43 @@ const MyMap:React.FC<{
   }, []);
 
   useEffect(() => {
-    
-  }, [displays])
+    // opnetab 변경 시 마다 mouseover 및 mouseleave 이벤트 변경
+    d3.selectAll("path")
+      .on("mouseover", fetchRecordsHandler)
+      .on("mouseleave", fetchRecordsHandler);
+  }, [openTab]);
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
 
+    const svg = d3.select(".canvas");
+    const g = d3.select("g");
+    // 맵 그리기
+    const defs = svg.select("defs");
+
+    displays.map((display) => {
+      g.select(`#code${display.regionId}`).attr("fill", fileFn);
+      if (display.image !== null) {
+        defs
+          .append("pattern")
+          .attr("id", display.regionId)
+          .attr("patternUnits", "userSpaceOnUse")
+          .attr("width", "100%")
+          .attr("height", "100%")
+          .attr("x", 0)
+          .attr("y", 0)
+          .append("image")
+          .attr("xlink:href", display.image)
+          .attr("width", "520px")
+          .attr("height", "500px")
+          .attr("x", 0)
+          .attr("y", -35);
+      }
+    });
+    console.log("변경");
+  }, [changes]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
-import CommentsModal from "./CommentsModal"
+import Comments from "./Comments"
 import Like from "./Like";
 
 import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa'
@@ -99,7 +99,7 @@ function FeedItem( props: FeedItem ) {
           <p className="leading-relaxed">{contents}</p>
         </div>
         <div>
-          <CommentsModal
+          <Comments
               review_id={review_id}/>
         </div>
       </div>

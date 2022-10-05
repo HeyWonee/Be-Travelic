@@ -1,9 +1,10 @@
 import React from "react";
 import { useState, useRef } from "react";
+import moment from "moment"
 
 import UploadPhoto from "./FeedPhoto";
-import DatePick from "./FeedDate"
 import StarRatings from "./FeedRating";
+import FeedPlace from "./FeedPlace";
 
 // 날짜
 import DatePicker from "react-datepicker"
@@ -12,7 +13,6 @@ import { ko } from "date-fns/esm/locale"
 
 import "../css/FeedCreate.css"
 import axios from "axios";
-import { image } from "d3";
 
 
 function FeedCreate() {
@@ -20,6 +20,7 @@ function FeedCreate() {
   const [visitedDate, setDate] = useState(new Date())
   const [ contents, setContents ] = useState()
   const [ imagefile, setImageFile] = useState<File>();
+  
   const accessToken = localStorage.getItem("accessToken");
 
   const changePhotoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,19 +38,41 @@ function FeedCreate() {
   const handleRegionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value
     setSelectRegion(value)
+    getPlaceList()
   }
   
   // 여행지
+  const [ placeLists, setPlaceLists ] = useState([])
   const [ selectPlace, setSelectPlace ] = useState<String>()
+  
   const handlePlaceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value
     setSelectPlace(value)
   }
+  const getPlaceList = async() => {
+    console.log(selectRegion)
+    const response = await axios.get(`http://j7d205.p.ssafy.io:8443/feed/travel-review`,
+    {
+      params: {
+        regionId: selectRegion
+      }
+    },
+    )
+    console.log('장소', response.data)
+    setPlaceLists(response.data)
+  }
+
+  
 
   // 날짜
   const selectDateHandler = (date: any) => {
+    const date2 = changeFormat(date, "yyyy-MM-DD")
+    console.log(date2)
     setDate(date)
     // console.log(visitedDate)
+  }
+  const changeFormat = (date: any, format: any) => {
+    moment(date).format(format);
   }
 
   const handleContentChange = (event: any) => {
@@ -97,45 +120,33 @@ function FeedCreate() {
           <option selected disabled>
             지역
           </option>
-          <option value="1">서울특별시</option>
-          <option value="2">부산광역시</option>
-          <option value="3">대구광역시</option>
-          <option value="4">인천광역시</option>
-          <option value="5">광주광역시</option>
-          <option value="6">대전광역시</option>
-          <option value="7">울산광역시</option>
-          <option value="8">세종특별자치시</option>
-          <option value="9">경기도</option>
-          <option value="10">강원도</option>
-          <option value="11">충청북도</option>
-          <option value="12">충청남도</option>
-          <option value="13">전라북도</option>
-          <option value="14">전라남도</option>
-          <option value="15">경상북도</option>
-          <option value="16">경상남도</option>
-          <option value="17">제주특별자치도</option>
+            <option value="1">서울특별시</option>
+            <option value="2">부산광역시</option>
+            <option value="3">대구광역시</option>
+            <option value="4">인천광역시</option>
+            <option value="5">광주광역시</option>
+            <option value="6">대전광역시</option>
+            <option value="7">울산광역시</option>
+            <option value="8">세종특별자치시</option>
+            <option value="9">경기도</option>
+            <option value="10">강원도</option>
+            <option value="11">충청북도</option>
+            <option value="12">충청남도</option>
+            <option value="13">전라북도</option>
+            <option value="14">전라남도</option>
+            <option value="15">경상북도</option>
+            <option value="16">경상남도</option>
+            <option value="17">제주특별자치도</option>
         </select>
+
         <select onChange={handlePlaceChange}>
-          <option selected disabled>
+        <option selected disabled>
             여행지
-          </option>
-          <option value="1">2022 금천하모니축제</option>
-          <option value="2">부산광역시</option>
-          <option value="3">대구광역시</option>
-          <option value="4">인천광역시</option>
-          <option value="5">광주광역시</option>
-          <option value="6">대전광역시</option>
-          <option value="7">울산광역시</option>
-          <option value="8">세종특별자치시</option>
-          <option value="9">경기도</option>
-          <option value="10">강원도</option>
-          <option value="11">충청북도</option>
-          <option value="12">충청남도</option>
-          <option value="13">전라북도</option>
-          <option value="14">전라남도</option>
-          <option value="15">경상북도</option>
-          <option value="16">경상남도</option>
-          <option value="17">제주특별자치도</option>
+        </option>
+        {placeLists.map((place : any, index) => (
+        <option value={place.placeId}>{place.placeName}</option>
+        ))
+        }
         </select>
       </div>
 

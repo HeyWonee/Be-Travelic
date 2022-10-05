@@ -8,11 +8,11 @@ import CommentItem from "./CommentItem"
 import '../css/CommentsModal.css';
 import  { FiSend } from 'react-icons/fi'
 
-interface CommentsModal {
+interface Comments {
   review_id: number
 }
 
-function CommentsModal ( props: CommentsModal ) {
+function Comments ( props: Comments ) {
   const { review_id } = props;
   const accessToken = localStorage.getItem("accessToken");
   const [ comments, setComments ] = useState<CommentItem[]>([])
@@ -103,4 +103,4 @@ function CommentsModal ( props: CommentsModal ) {
 
 }
 
-export default CommentsModal;
+export default Comments;

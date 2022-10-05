@@ -81,14 +81,14 @@ const MyPage = () => {
       }`}
     >
       {isLoading ? (
-        <div className="flex flex-col items-center">
+        <div className='flex flex-col items-center'>
           <ColorRing
             visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
+            height='80'
+            width='80'
+            ariaLabel='blocks-loading'
             wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
+            wrapperClass='blocks-wrapper'
             colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
           />
           <div>
@@ -96,7 +96,7 @@ const MyPage = () => {
           </div>
         </div>
       ) : (
-        <div className="fadeIn">
+        <div className='fadeIn'>
           {showArticleModal && (
             <ArticleModal setShowArticleModal={setShowArticleModal} />
           )}
@@ -109,7 +109,7 @@ const MyPage = () => {
             />
           )}
           {/* 프로필 */}
-          <div className="flex justify-around">
+          <div className='flex justify-around'>
             <section>
               <MyPageCard />
             </section>

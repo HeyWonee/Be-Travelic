@@ -1,25 +1,30 @@
 import React from "react";
+import axios from "axios";
 import { useState, useRef } from "react";
-import moment from "moment"
 
+// 사진
 import UploadPhoto from "./FeedPhoto";
+
+// 별점
 import StarRatings from "./FeedRating";
-import FeedPlace from "./FeedPlace";
 
 // 날짜
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale"
+import moment from "moment"
 
 import "../css/FeedCreate.css"
-import axios from "axios";
 
 
 function FeedCreate() {
-  const [rates, setRates] = useState(0);
-  const [visitedDate, setDate] = useState(new Date())
+  const [ rates, setRates ] = useState(0);
+  const [ visitedDate, setDate ] = useState(new Date())
   const [ contents, setContents ] = useState()
   const [ imagefile, setImageFile] = useState<File>();
+  const [ selectRegion, setSelectRegion ] = useState<String>()
+  const [ placeLists, setPlaceLists ] = useState([])
+  const [ selectPlace, setSelectPlace ] = useState<String>()
   
   const accessToken = localStorage.getItem("accessToken");
 
@@ -34,7 +39,6 @@ function FeedCreate() {
   };
 
   // 지역
-  const [ selectRegion, setSelectRegion ] = useState<String>()
   const handleRegionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value
     setSelectRegion(value)
@@ -42,13 +46,11 @@ function FeedCreate() {
   }
   
   // 여행지
-  const [ placeLists, setPlaceLists ] = useState([])
-  const [ selectPlace, setSelectPlace ] = useState<String>()
-  
   const handlePlaceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value
     setSelectPlace(value)
   }
+  // 지역별 여행지 GET(spring)
   const getPlaceList = async() => {
     console.log(selectRegion)
     const response = await axios.get(`http://j7d205.p.ssafy.io:8443/feed/travel-review`,
@@ -62,8 +64,6 @@ function FeedCreate() {
     setPlaceLists(response.data)
   }
 
-  
-
   // 날짜
   const selectDateHandler = (date: any) => {
     const date2 = changeFormat(date, "yyyy-MM-DD")
@@ -75,14 +75,18 @@ function FeedCreate() {
     moment(date).format(format);
   }
 
+
+  // 내용
   const handleContentChange = (event: any) => {
     setContents(event.target.value)
   }
 
+  // 사진
   const feedImage = (file: File) => {
     setImageFile(file)
   }
 
+  // 리뷰 등록
   const postReview = async() => {
     const formData:any = new FormData();
     console.log(imagefile)
@@ -95,6 +99,7 @@ function FeedCreate() {
     console.log('날짜', visitedDate)
     console.log('내용', contents)
     console.log(accessToken)
+
     const response = await axios({
       method: "post",
       url: `http://j7d205.p.ssafy.io:8443/feed/travel-review`,
@@ -115,8 +120,9 @@ function FeedCreate() {
 
   return (
     <div id="FeedCreateCard" className="justify-content-center items-center">
-      <div id="FeedPlace">
-        <select onChange={handleRegionChange}>
+      <div className="flex items-center justify-center bg-gray-200 m-5 mb-0">
+        {/* 지역 */}
+        <select id="RegionPicker" onChange={handleRegionChange}>
           <option selected disabled>
             지역
           </option>
@@ -139,7 +145,8 @@ function FeedCreate() {
             <option value="17">제주특별자치도</option>
         </select>
 
-        <select onChange={handlePlaceChange}>
+        {/* 지역별 여행지 */}
+        <select id="PlacePicker" onChange={handlePlaceChange}>
         <option selected disabled>
             여행지
         </option>
@@ -154,7 +161,6 @@ function FeedCreate() {
         id="FeedCreateCardHeader"
         className="flex items-center justify-center bg-gray-200 m-5 mt-0"
       >
-      
       <StarRatings rates={rates} setRates={setRates}/>
         
         <DatePicker

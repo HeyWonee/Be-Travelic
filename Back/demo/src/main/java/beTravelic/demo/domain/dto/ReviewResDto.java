@@ -27,7 +27,8 @@ public class ReviewResDto {
 
     // 이미지 주소
     private String image;
-    private String realFileName;
+    private String fileName;
+
 
     private Long score;
 
@@ -49,8 +50,8 @@ public class ReviewResDto {
                 .regionId(review.getRegion().getRegionId())
                 .regionName(review.getRegion().getDo_gwangyuksi())
                 .contents(review.getContents())
-                .image(review.getFileName())
-                .realFileName(review.getRealFileName())
+                .image(review.getRealFileName())
+                .fileName(review.getFileName())
                 .score(review.getScore())
                 .created_at(review.getCreated_at())
                 .visited_at(review.getVisited_at())
@@ -80,8 +81,8 @@ public class ReviewResDto {
         this.regionId = review.getRegion().getRegionId();
         this.regionName = review.getRegion().getDo_gwangyuksi();
         this.contents = review.getContents();
-        this.image = review.getFileName();
-        this.realFileName = review.getRealFileName();
+        this.fileName = review.getFileName();
+        this.image = review.getRealFileName();
         this.score = review.getScore();
         this.created_at = review.getCreated_at();
         this.visited_at = review.getVisited_at();

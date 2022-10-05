@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,13 +60,13 @@ public class MypageService {
         File file = null;
         if(contentType.contains("image/jpeg")){
             file = new File(IMAGE_PATH + fileName + ".jpg");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".jpg").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".jpg").build();
         }else if(contentType.contains("image/png")){
             file = new File(IMAGE_PATH + fileName + ".png");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".png").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".png").build();
         }else if(contentType.contains("image/gif")){
             file = new File(IMAGE_PATH + fileName + ".gif");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".gif").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".gif").build();
         }else{
             new RuntimeException("지원하는 사진 형식이 아닙니다");
         }
@@ -82,7 +83,7 @@ public class MypageService {
 
         MypagePicture myPicture = new MypagePicture();
         myPicture.setUser(user);
-        myPicture.setFileName(picture.getRealFileName());
+        myPicture.setFileName(picture.getFileName());
         myPicture.setRealFileName(picture.getRealFileName());
         myPicture.setRegion(region);
 
@@ -91,9 +92,14 @@ public class MypageService {
         return MypagePictureResponseDto.of(region_id, picture.getRealFileName(), user.getUser_id());
     }
 
-    public List<MypagePicture> getMypagePictures(String id) {
-        List<MypagePicture> mypagePictures = mypagePictureRepository.findMypagePicturesByUserId(id);
-        return mypagePictures;
+//    public List<MypagePicture> getMypagePictures(String id) {
+//        List<MypagePicture> mypagePictures = mypagePictureRepository.findMypagePicturesByUserId(id);
+//        return mypagePictures;
+//    }
+    public List<MypagePictureViewDto> findAllByUser(String id) {
+        User user = userRepository.findUserById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
+        List<MypagePicture> mypagePictures = user.getMypagePictures();
+        return mypagePictures.stream().map(MypagePictureViewDto::new).collect(Collectors.toList());
     }
 
 //    public MypagePictureViewDto getMypagePictures(String id) throws Exception {

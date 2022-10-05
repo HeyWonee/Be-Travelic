@@ -39,8 +39,8 @@ export const fetchFollowList = async (followType: string) => {
   }
 };
 
-export const fetchAllVisitedPlaces = async (userId: string) => {
-  const url = `/mypage/travel-history/user/${userId}`;
+export const fetchAllVisitedPlaces = async () => {
+  const url = `/mypage/travel-history/user`;
 
   try {
     const res = await springAxios({
@@ -59,17 +59,22 @@ export const fetchRegionalVisitedPlaces = async (
   regionId: string,
   userId: string
 ) => {
-  const url = `/mypage/travel-history/region/${regionId}/user/${userId}`;
+  const url = `/mypage/travel-history/region/${regionId}/user`;
 
   try {
+    const res = await springAxios({
+      method: "get",
+      url,
+    });
+    return res.data;
   } catch (error) {
     const err = error as AxiosError;
     console.log(err.response?.data);
   }
 };
 
-export const fetchAllBookMarks = async (userId: string) => {
-  const url = `/bookmark/user/${userId}`;
+export const fetchAllBookMarks = async () => {
+  const url = `/bookmark/user`;
   try {
     const res = await springAxios({
       method: "get",
@@ -80,8 +85,11 @@ export const fetchAllBookMarks = async (userId: string) => {
   } catch (error) {}
 };
 
-export const fetchRegionalBookMarks = async ({ regionId, userId }: Region) => {
-  const url = `/bookmark/region/${regionId}/user/${userId}`;
+export const fetchRegionalBookMarks = async (
+  regionId: string,
+  userId: string
+) => {
+  const url = `/bookmark/region/${regionId}/user`;
 
   try {
     const res = await springAxios({
@@ -118,24 +126,67 @@ export const fetchUserInfo = async () => {
   }
 };
 
-export const fetchPorfilePhoto = async (data: File) => {
-  // const url = "http://j7d205.p.ssafy.io:8443/users/profile/upload";
-  const url = "users/profile/upload";
+export const fetchMapPhoto = async (data: File, regionId: string) => {
+  const url = "/mypage/uploadMyPicture";
   const formData = new FormData();
-  formData.append("File", data);
-  console.log(data, "data");
+  formData.append("file", data);
 
   console.log(formData);
 
-  const token = localStorage.getItem("accessToken")!;
   try {
     const res = await springAxios({
       method: "post",
       url,
-      data: formData,
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-type": "multipart/form-data",
       },
+      data: formData,
+      params: {
+        region_id: regionId,
+      },
+    });
+
+    console.log(res);
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err.response?.data);
+    console.log(err);
+  }
+};
+
+export const getMapPothos = async () => {
+  const url = "/mypage/downloadMyPicture";
+
+  try {
+    const res = await springAxios({
+      method: "get",
+      url,
+    });
+    console.log(res.data, 'getmap');
+    
+    return res.data;
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err.response?.data);
+    console.log(err);
+  }
+};
+
+export const fetchPorfilePhoto = async (data: File) => {
+  const url = "users/profile/upload";
+  const formData = new FormData();
+  formData.append("file", data);
+
+  console.log(formData);
+
+  try {
+    const res = await springAxios({
+      method: "post",
+      url,
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+      data: formData,
     });
 
     console.log(res);
@@ -154,9 +205,9 @@ export const downloadProfilePhoto = async () => {
       method: "get",
       url,
     });
+    console.log(res);
 
-    return res
-
+    return res;
   } catch (error) {
     const err = error as AxiosError;
     console.log(err.response?.data);

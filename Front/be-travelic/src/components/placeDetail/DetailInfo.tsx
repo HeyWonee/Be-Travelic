@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import "../css/PlaceDetail.css"
 import Bookmark from "./Bookmark"
-import KakaoShare from "../common/KakaoShare";
+import KakaoShare from "../common/KakaoShare"
 
 interface DetailInfo {
   placeId: number;
@@ -88,12 +88,15 @@ function DetailInfo( props: DetailInfo) {
                 </div>
 
                 <p className="leading-relaxed text-lg m-1 mt-5">{overview}</p>
-                <KakaoShare
-                  placeId={placeId}
-                  image={image}
-                  title={title}
-                  overview={overview}
-                />
+                <div className="float-right">
+                  {/* 카카오톡 공유하기 */}
+                  <KakaoShare
+                    placeId={placeId}
+                    image={image}
+                    title={title}
+                    overview={overview}
+                  />
+                </div>
               </div>
             </div>
           </div>

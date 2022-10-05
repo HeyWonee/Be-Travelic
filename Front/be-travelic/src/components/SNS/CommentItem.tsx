@@ -46,6 +46,7 @@ function CommentItem ( props : CommentItem ) {
     }
     )
     console.log(response)
+    window.location.reload()
   }
   
   return (

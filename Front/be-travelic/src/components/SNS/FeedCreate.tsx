@@ -12,12 +12,15 @@ import { ko } from "date-fns/esm/locale"
 
 import "../css/FeedCreate.css"
 import axios from "axios";
+import { image } from "d3";
+
 
 function FeedCreate() {
   const [rates, setRates] = useState(0);
   const [visitedDate, setDate] = useState(new Date())
   const [ contents, setContents ] = useState()
-  const [ imagefile ] = useState()
+  const [ imagefile, setImageFile] = useState<File>();
+  const accessToken = localStorage.getItem("accessToken");
 
   const changePhotoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.files![0]);
@@ -53,18 +56,38 @@ function FeedCreate() {
     setContents(event.target.value)
   }
 
+  const feedImage = (file: File) => {
+    setImageFile(file)
+  }
+
   const postReview = async() => {
+    const formData:any = new FormData();
+    console.log(imagefile)
+    formData.append('file', imagefile)
+
+    console.log('사진', formData)
     console.log('지역', selectRegion)
     console.log('여행지', selectPlace)
     console.log('별점', rates)
     console.log('날짜', visitedDate)
     console.log('내용', contents)
-    const response = await axios.post(`http://j7d205.p.ssafy.io:8443/feed/travel-review`,
-    {},
-    // {
-    //   headers:
-    // }
-    )
+    console.log(accessToken)
+    const response = await axios({
+      method: "post",
+      url: `http://j7d205.p.ssafy.io:8443/feed/travel-review`,
+      data: formData,
+      headers: {
+        Authorization: `${accessToken}`
+      },
+      params: {
+            place_id: selectPlace,
+            regionId: selectRegion,
+            contents: contents,
+            score: rates,
+            visited_at: visitedDate
+      }
+    })
+    console.log(response)
   }
 
   return (
@@ -135,6 +158,7 @@ function FeedCreate() {
       <div id="FeedCreatePhoto">
         <UploadPhoto 
           type="place"
+          feedImage={feedImage}
           />
       </div>
 

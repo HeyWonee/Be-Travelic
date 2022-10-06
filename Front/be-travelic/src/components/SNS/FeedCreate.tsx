@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useState, useRef } from "react";
 
@@ -10,11 +10,12 @@ import StarRatings from "./FeedRating";
 
 // 날짜
 import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale"
-import moment from "moment"
+import 'react-datepicker/dist/react-datepicker.css';
 
 import "../css/FeedCreate.css"
+import { GrMap } from "react-icons/gr"
+import { AiOutlineCalendar } from "react-icons/ai"
 
 
 function FeedCreate() {
@@ -42,7 +43,7 @@ function FeedCreate() {
   const handleRegionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value
     setSelectRegion(value)
-    getPlaceList()
+    getPlaceList(value)
   }
   
   // 여행지
@@ -51,12 +52,12 @@ function FeedCreate() {
     setSelectPlace(value)
   }
   // 지역별 여행지 GET(spring)
-  const getPlaceList = async() => {
+  const getPlaceList = async(value: any) => {
     console.log(selectRegion)
     const response = await axios.get(`http://j7d205.p.ssafy.io:8443/feed/travel-review`,
     {
       params: {
-        regionId: selectRegion
+        regionId: value
       }
     },
     )
@@ -66,15 +67,9 @@ function FeedCreate() {
 
   // 날짜
   const selectDateHandler = (date: any) => {
-    const date2 = changeFormat(date, "yyyy-MM-DD")
-    console.log(date2)
     setDate(date)
     // console.log(visitedDate)
   }
-  const changeFormat = (date: any, format: any) => {
-    moment(date).format(format);
-  }
-
 
   // 내용
   const handleContentChange = (event: any) => {
@@ -115,12 +110,14 @@ function FeedCreate() {
             visited_at: visitedDate
       }
     })
-    console.log(response)
+    console.log(response.status)
+      window.location.reload()
   }
 
   return (
     <div id="FeedCreateCard" className="justify-content-center items-center">
-      <div className="flex items-center justify-center bg-gray-200 m-5 mb-0">
+      <div id="FeedCreatePlace" className="flex items-center justify-center bg-gray-200 m-5 mb-0">
+        <GrMap id="placeIcon" size={30} className="mr-3"/>
         {/* 지역 */}
         <select id="RegionPicker" onChange={handleRegionChange}>
           <option selected disabled>
@@ -161,15 +158,25 @@ function FeedCreate() {
         id="FeedCreateCardHeader"
         className="flex items-center justify-center bg-gray-200 m-5 mt-0"
       >
-      <StarRatings rates={rates} setRates={setRates}/>
+        <AiOutlineCalendar id="calendaricon" className="mr-2"/>
+        <label
+          htmlFor="rates"
+          className="block mt-3 mb-3 text-ml font-medium text-gray-900 dark:text-gray-400"
+        >방문 날짜</label>
+      <div id="DatePicker">
         
         <DatePicker
+          fixedHeight
           dateFormat="yyyy-MM-dd"
           locale={ko}
           selected={visitedDate}
-          onChange={selectDateHandler} 
+          onChange={selectDateHandler}
           todayButton={"Today"}
         />
+      </div>
+      <StarRatings rates={rates} setRates={setRates}/>
+        
+
       </div>
 
       <div id="FeedCreatePhoto">

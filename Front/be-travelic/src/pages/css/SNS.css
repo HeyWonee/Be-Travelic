@@ -1,11 +1,7 @@
-#SNS{
-}
-
 #FeedContainer{
   height: auto;
 }
 
 #SNSContainer{
-  margin-right: 500px;
   position: fixed;
 }

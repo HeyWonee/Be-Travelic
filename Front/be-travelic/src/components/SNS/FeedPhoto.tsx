@@ -26,7 +26,7 @@ const UploadPhoto = ({ type, feedImage }: DefaultImage) => {
     console.log(event.target.files![0]);
     if (event.target.files![0]) {
       feedImage(event.target.files![0])
-      setFile(event.target.files![0]); // 요거 보내면 됨!
+      setFile(event.target.files![0]);
     } else {
       //업로드 취소할 시
       if (type === "place") {

@@ -35,7 +35,7 @@ function DetailRecommend({ title }: DetailRecommend) {
     infinite: true, // 무한 스와이프
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToScroll: 4,
     autoplay: true,
     autoplaySilde: 15000, // 자동 슬라이드 시, 한 슬라이드에서 머무르는 시간
     pauseOnHover: true,

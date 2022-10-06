@@ -3,7 +3,7 @@
   border-width: 1px;
   border-color: #C3CBCD;
   margin-left: 400px;
-  width: 90%;
+  width: 60%;
 }
 
 #FeedCreateCardHeader {
@@ -45,19 +45,36 @@
   background-color: #eee;
 }
 
-#contents{
+#contents {
   margin-left: 35px;
   width: 90%;
 }
 
-#FeedContentLabel{
+#FeedContentLabel {
   margin-left: 35px;
 }
 
-#PlacePicker{
-  margin-left: 3px;
-  width: 150%;
+#PlacePicker {
+  text-align: center;
+  margin-left: 10px;
+  width: 500px;
+  height: 40px;
   border: 1px solid;
 	border-radius: 4px;
-  color:#112D4E
+  border-color:#C3CBCD
+}
+
+#RegionPicker {
+  text-align: center;
+  margin-left: 3px;
+  border: 1px solid;
+  border-radius: 4px;
+  height: 40px;
+  border-color: #C3CBCD;
+}
+
+#DatePicker {
+  width: 200px;
+  text-align: center;
+  height: 100%;
 }

@@ -3,7 +3,7 @@
   border-width: 1px;
   border-color: #C3CBCD;
   margin-left: 400px;
-  width: 90%;
+  width: 60%;
 }
 
 #FeedCardHeader {
@@ -25,4 +25,8 @@
 #FeedImage {
   width: 100%;
   height: 100%;
+}
+
+.input {
+  text-align: center;
 }

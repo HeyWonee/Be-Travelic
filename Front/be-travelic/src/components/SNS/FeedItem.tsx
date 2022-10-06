@@ -97,6 +97,7 @@ function FeedItem( props: FeedItem ) {
 
         <div id="FeedContent" className="w-full m-3 mb-5">
           <p className="leading-relaxed">{contents}</p>
+          <hr/>
         </div>
         <div>
           <Comments

@@ -50,7 +50,7 @@ const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
 
   return (
     <div>
-      <button className="kakao m-3">
+      <button className="kakao m-3 m-3">
         <img
           id="kakaologo"
           src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"

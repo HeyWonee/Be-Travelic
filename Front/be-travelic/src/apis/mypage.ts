@@ -22,13 +22,14 @@ export interface userInfoType {
   user_id: number;
 }
 
-export const fetchFollowList = async (followType: string) => {
+export const fetchFollowList = async (followType: string, user_id: number) => {
   const url = `/follow/${followType}`;
 
   try {
     const res = await springAxios({
       method: "get",
       url,
+      params: { user_id },
     });
 
     console.log(res, "팔로우리스트");
@@ -40,14 +41,14 @@ export const fetchFollowList = async (followType: string) => {
   }
 };
 
-export const fetchAllVisitedPlaces = async () => {
+export const fetchAllVisitedPlaces = async (user_id: number) => {
   const url = `/mypage/travel-history/user`;
-  const user_id = await getMemberId();
+
   try {
     const res = await springAxios({
       method: "get",
       url,
-      params: user_id,
+      params: { user_id },
     });
 
     return res.data;
@@ -59,7 +60,7 @@ export const fetchAllVisitedPlaces = async () => {
 
 export const fetchRegionalVisitedPlaces = async (
   regionId: string,
-  userId: string
+  user_id: number
 ) => {
   const url = `/mypage/travel-history/region/${regionId}/user`;
 
@@ -67,6 +68,7 @@ export const fetchRegionalVisitedPlaces = async (
     const res = await springAxios({
       method: "get",
       url,
+      params: { user_id },
     });
     return res.data;
   } catch (error) {
@@ -75,12 +77,14 @@ export const fetchRegionalVisitedPlaces = async (
   }
 };
 
-export const fetchAllBookMarks = async () => {
+export const fetchAllBookMarks = async (user_id: number) => {
   const url = `/bookmark/user`;
+
   try {
     const res = await springAxios({
       method: "get",
       url,
+      params: { user_id },
     });
 
     return res.data;
@@ -89,7 +93,7 @@ export const fetchAllBookMarks = async () => {
 
 export const fetchRegionalBookMarks = async (
   regionId: string,
-  userId: string
+  user_id: number
 ) => {
   const url = `/bookmark/region/${regionId}/user`;
 
@@ -97,6 +101,7 @@ export const fetchRegionalBookMarks = async (
     const res = await springAxios({
       method: "get",
       url,
+      params: { user_id },
     });
 
     return res.data;
@@ -106,20 +111,17 @@ export const fetchRegionalBookMarks = async (
   }
 };
 
-export const fetchUserInfo = async () => {
+export const fetchUserInfo = async (user_id: number) => {
   const url = "users";
-  const accessToken = localStorage.getItem("accessToken");
-  console.log(accessToken);
 
   try {
     const res = await springAxios({
       method: "get",
       url,
-      // headers: {
-      //   Authorization: `Bearer ${accessToken}`,
-      // },
+      params: { user_id },
     });
-    console.log(res.data.data, "fetch userinfo");
+    console.log("유저인포", res.data.data);
+
     return res.data.data;
   } catch (error) {
     const err = error as AxiosError;
@@ -164,7 +166,7 @@ export const getMapPothos = async () => {
     const res = await springAxios({
       method: "get",
       url,
-      params: user_id,
+      params: { user_id },
     });
     console.log(res.data, "getmap");
 
@@ -203,11 +205,13 @@ export const fetchPorfilePhoto = async (data: File) => {
 
 export const downloadProfilePhoto = async () => {
   const url = "users/profile/download";
+  const user_id = await getMemberId();
 
   try {
     const res = await springAxios({
       method: "get",
       url,
+      params: { user_id },
     });
     console.log(res);
 

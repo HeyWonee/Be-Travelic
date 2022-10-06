@@ -20,6 +20,7 @@ export interface userInfoType {
   reviewCnt?: number;
   surveyKeyword?: string[];
   user_id: number;
+  nickname: string;
 }
 
 export const fetchFollowList = async (followType: string, user_id: number) => {
@@ -32,7 +33,7 @@ export const fetchFollowList = async (followType: string, user_id: number) => {
       params: { user_id },
     });
 
-    console.log(res, "팔로우리스트");
+    console.log(res, "팔로우리스트", followType);
 
     return res.data;
   } catch (error) {
@@ -88,9 +89,13 @@ export const fetchAllBookMarks = async (user_id: number) => {
       url,
       params: { user_id },
     });
+    console.log(res, "리저널북마크");
 
     return res.data;
-  } catch (error) {}
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err);
+  }
 };
 
 export const fetchRegionalBookMarks = async (
@@ -109,7 +114,7 @@ export const fetchRegionalBookMarks = async (
     return res.data;
   } catch (error) {
     const err = error as AxiosError;
-    console.log(err.response?.data);
+    console.log(err);
   }
 };
 
@@ -238,7 +243,7 @@ export const downloadProfilePhoto = async (user_id: number) => {
   }
 };
 
-export const fetchFollow = async (follower_id: string, isFollow: boolean) => {
+export const fetchFollow = async (follower_id: number, isFollow: boolean) => {
   const url = "follow";
   const method = isFollow ? "delete" : "post";
 
@@ -250,8 +255,7 @@ export const fetchFollow = async (follower_id: string, isFollow: boolean) => {
         follower_id,
       },
     });
-
-    console.log(res);
+    return res;
   } catch (error) {
     const err = error as AxiosError;
     console.log(err.response?.data);

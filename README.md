@@ -30,35 +30,38 @@
 
 ---
 
-![홈2](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\홈2.JPG)
+![홈2](https://user-images.githubusercontent.com/94509971/194459308-11885d97-b489-4d55-bde9-d42ca2887fb9.JPG)
 
 1. 회원 가입 및 설문조사
 
-![회원가입](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\회원가입.JPG)![설문조사](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\설문조사.png)
+![회원가입](https://user-images.githubusercontent.com/94509971/194459332-13bfd756-9b1f-49e1-a368-520b9423ddbc.JPG)
+
+![설문조사](https://user-images.githubusercontent.com/94509971/194459358-a4417a93-882d-499f-bd9d-4db3c3a38a5b.png)
 
 2. 여행지 추천 : 컨텐츠 기반 필터링을 이용한 사용자 맞춤 여행지 추천
 
-![추천](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\추천.png)
+![추천](https://user-images.githubusercontent.com/94509971/194459436-6e2c6ddc-10d3-4983-88cb-2ada746e5c99.png)
 
-![여행지 상세2](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\여행지 상세2.png)
+<img width="879" alt="여행지 상세2" src="https://user-images.githubusercontent.com/94509971/194459470-2422d6cd-0ac0-4633-acc4-ce7465dfad09.png"><img width="809" alt="여행지 상세" src="https://user-images.githubusercontent.com/94509971/194459530-3a875083-07db-4e50-91fc-b7421c9addae.png">
+ent.com/94509971/194459470-2422d6cd-0ac0-4633-acc4-ce7465dfad09.png">
 
-![여행지 상세](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\여행지 상세.png)
+
 
 - 반응형 페이지
 
-![상세페이지 반응형](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\상세페이지 반응형.png)
+![상세페이지 반응형](https://user-images.githubusercontent.com/94509971/194459584-ac1f7540-a1e0-441a-9c21-b110ff4f217b.png)
 
-![상세페이지 반응형](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\상세페이지 반응형2.png)
+![상세페이지 반응형2](https://user-images.githubusercontent.com/94509971/194459603-fa2e52ce-9d30-4b92-aa4c-6b1dc80a6b44.png)
 
 3. Mypage : 사용자 여행 기록 조회, 자신만의 여행 지도 제작
 
-![mypage](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\mypage.PNG)
+![mypage](https://user-images.githubusercontent.com/94509971/194459634-32f375ae-ce96-431c-bb59-ba7201d35523.PNG)
 
-![mypage2](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\mypage2.png)
+![mypage2](https://user-images.githubusercontent.com/94509971/194459683-633f7701-abda-4791-8be8-bce09f13da0a.png)
 
 4. SNS : 작성한 여행기록 공유 가능하고, 유사한 사용자의 여행 기록도 추천
 
-![배포 피드작성1](C:\Users\jyh64\Desktop\특화 5팀\서비스 화면\배포 피드작성1.PNG)
+![배포 피드작성1](https://user-images.githubusercontent.com/94509971/194459715-651780a3-af71-4fff-9b58-743248006098.PNG)
 
 
 

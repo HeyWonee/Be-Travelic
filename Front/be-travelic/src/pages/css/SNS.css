@@ -1,13 +1,21 @@
-#SNS{
-  justify-content: center;
-  margin-right: 250px;
-}
-
-#FeedContainer{
+#FeedContainer {
   height: auto;
 }
 
-#CategoryListIcons{
-  width: 50%;
-  justify-content: center;
+#SNSContainer {
+  position: fixed;
 }
+
+.fadeIn {
+  animation: fadeInAnimation 1s;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+

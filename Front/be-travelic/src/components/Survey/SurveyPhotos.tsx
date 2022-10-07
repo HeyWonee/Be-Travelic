@@ -8,7 +8,6 @@ import { authActions } from "../../store/auth";
 import "../css/SurveyPhotos.css";
 import { dummyPhotos } from "./SurveyData";
 import { Winners } from "../../apis/auth";
-import { fetchUserInfo } from "../../apis/mypage";
 
 interface Photo {
   id: number;
@@ -51,12 +50,11 @@ const SurveyPhotos: React.FC<{
       };
 
       // axios 요청 + 다른 곳으로 route
-      console.log(finals, "winners");
-      const { user_id } = await fetchUserInfo();
+      const userId = await getMemberId();
       const res = await fetchSurvey(finals);
 
       if (res?.status === 200) {
-        navigate(`/mypage/${user_id}`);
+        navigate(`/recommendMain`);
       }
     }
 

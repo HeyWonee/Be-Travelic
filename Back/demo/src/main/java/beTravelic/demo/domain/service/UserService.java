@@ -1,6 +1,8 @@
 package beTravelic.demo.domain.service;
 
 import beTravelic.demo.domain.dto.*;
+import beTravelic.demo.domain.entity.SurveyCategory;
+import beTravelic.demo.domain.entity.SurveyKeyword;
 import beTravelic.demo.domain.exception.DuplicatedNickNameException;
 import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.exception.NoExistUserException;
@@ -63,15 +65,18 @@ public class UserService {
     }
 
     // 사용자 정보 조회
-    public UserInfoResponseDto getUserInfo(String id) {
-        User user = userRepository.findUserById(id).orElseThrow(() ->
+    public UserInfoResponseDto getUserInfo(Long userId) {
+        User user = userRepository.findUserByUserId(userId).orElseThrow(() ->
              new RuntimeException("일치하는 사용자 없음"));
 //        SurveyCategory surveyCategory = surveyCategoryRepository.findSurveyCategoryById(id).orElseThrow(() ->
 //                new RuntimeException("일치하는 사용자 없음"));
-        List<String> surveyKeyword = surveyKeywordRepository.findSurveyKeywordById(id);
-        int follower_cnt = followRepository.countByFollower_Id(id);
-        int following_cnt = followRepository.countByFollowing_Id(id);
-        int review_cnt = reviewRepository.countReviewByUser_Id(id);
+        List<String> surveyKeyword = surveyKeywordRepository.findSurveyKeywordById(userId);
+        int follower_cnt = followRepository.countByFollower_UserId(userId);
+        int following_cnt = followRepository.countByFollowing_UserId(userId);
+        int review_cnt = reviewRepository.countReviewByUser_userId(userId);
+        long lst[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+
         UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.ofUser(user, surveyKeyword);
         userInfoResponseDto.setFollowerCnt(follower_cnt);
         userInfoResponseDto.setFollowingCnt(following_cnt);
@@ -79,6 +84,22 @@ public class UserService {
 //        userInfoResponseDto.setSurveyKeyword(surveyKeyword);
         return userInfoResponseDto;
     }
+
+//    public void surveySave(String id, List<Long> surveyCategory, List<String> surveyKeyword) {
+//
+//        for (int i = 0; i < surveyKeyword.size(); i++) {
+//            String temp = surveyKeyword.get(i);
+//            SurveyKeyword sk = new SurveyKeyword(user, temp);
+//            surveyKeywordRepository.save(sk);
+//        }
+//        for (int i = 0; i < surveyCategory.size(); i++) {
+//            Long temp = surveyCategory.get(i);
+//            SurveyCategory sc = new SurveyCategory(user, temp);
+//            surveyCategoryRepository.save(sc);
+//        }
+//
+////        return new SurveySaveResponseDto();
+//    }
 
     public GetAccessTokenResponseDto getAccessToken(String refreshToken) {
         User user = userRepository.findUserByRefreshToken(refreshToken).orElseThrow(() ->

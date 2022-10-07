@@ -1,31 +1,20 @@
 import React, { useEffect, useLayoutEffect, useMemo } from "react";
 import { useState } from "react";
-import { ColorRing, Watch } from "react-loader-spinner";
-import { getMapPothos } from "../apis/mypage";
+import { ColorRing } from "react-loader-spinner";
 import ArticleModal from "../components/common/ArticleModal";
-import { dummyData } from "../components/MyPage/DummyData";
 import MyMap from "../components/MyPage/MyMap";
 import MyPageCard from "../components/MyPage/MyPageCard";
 import PhotoInputModal from "../components/MyPage/PhotoInputModal";
 import PlaceContainer from "../components/MyPage/PlaceContainer";
 import "../pages/css/OnBoard.css";
 import { PlaceData } from "../components/MyPage/PlaceContainer";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { useNavigate, useParams } from "react-router-dom";
 
 export interface Display {
   regionId: number;
   image: string | null;
-  // x: number;
-  // y: number;
-  // width: string;
-  // height: string;
 }
 
 const MyPage = () => {
-  const userId = useSelector((state: RootState) => state.auth.userId);
-  const { id } = useParams();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showArticleModal, setShowArticleModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -34,15 +23,10 @@ const MyPage = () => {
   const [displays, setDisplays] = useState<Display[]>([]);
   const [regionId, setRegionId] = useState<number>(0);
   const [changes, setChanges] = useState(true);
-  const navigate = useNavigate();
-
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const [changedPhoto, setChangedPhoto] = useState({
+    id: 0,
+    image: "",
+  });
 
   const changeDisplaysHandler = async (id: number, image: string) => {
     const newDisplays = displays;
@@ -53,19 +37,19 @@ const MyPage = () => {
     });
     console.log("여기는 displays");
     setChanges((prev) => !prev);
+    setChangedPhoto({ id, image });
     setDisplays(newDisplays);
     return newDisplays;
   };
 
   useLayoutEffect(() => {
-
     setIsLoading(true);
     const initialData = async () => {
       // 초기 데이터 호출
 
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 500);
     };
     initialData();
   }, []);
@@ -87,9 +71,6 @@ const MyPage = () => {
             wrapperClass="blocks-wrapper"
             colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
           />
-          <div>
-            <p>여행지를 추천해드릴게요. 잠시만 기다려주세요</p>
-          </div>
         </div>
       ) : (
         <div className="fadeIn">
@@ -101,7 +82,6 @@ const MyPage = () => {
               setShowModal={setShowModal}
               changeDisplayHandler={changeDisplaysHandler}
               regionId={regionId}
-              // setShowArticleModal={setShowArticleModal}
             />
           )}
           {/* 프로필 */}
@@ -115,10 +95,12 @@ const MyPage = () => {
                 setShowModal={setShowModal}
                 openTab={openTab}
                 setDisplayedPlace={setDisplayedPlace}
+                // display는 젤 초기임
                 displays={displays}
+                setDisplays={setDisplays}
                 setRegionId={setRegionId}
                 changes={changes}
-                setDisplays={setDisplays}
+                changedPhoto={changedPhoto}
               />
             </section>
             {/* 추천 */}

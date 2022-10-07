@@ -9,10 +9,10 @@ const StarRatings: React.FC<{
   };
 
   return (
-    <div id="FeedRating" className="m-5 mr-10">
+    <div id="FeedRating" className="m-5 mr-10 flex flex-row">
       <label
         htmlFor="rates"
-        className="block m-2 mt-3 text-sm font-medium text-gray-900 dark:text-gray-400"
+        className="block mt-3 text-ml font-medium text-gray-900 dark:text-gray-400"
       >여행지 평가</label>
 
       <div className="flex items-center m-2" id="rates">

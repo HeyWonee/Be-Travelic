@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 
 import FeedItem from "./FeedItem"
+import { djangoAxios } from "../../apis";
 
 interface UserId {
   user_id: number;

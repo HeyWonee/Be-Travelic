@@ -8,14 +8,12 @@ import CommentItem from "./CommentItem"
 import '../css/CommentsModal.css';
 import  { FiSend } from 'react-icons/fi'
 
-interface CommentsModal {
-  open: any
-  close: any
+interface Comments {
   review_id: number
 }
 
-function CommentsModal ( props: CommentsModal ) {
-  const { open, close, review_id } = props;
+function Comments ( props: Comments ) {
+  const { review_id } = props;
   const accessToken = localStorage.getItem("accessToken");
   const [ comments, setComments ] = useState<CommentItem[]>([])
 
@@ -66,22 +64,14 @@ function CommentsModal ( props: CommentsModal ) {
       },
     }
     )
-    console.log(response.data)
-    if (response.data === 'true')
+    console.log('댓글', response.data)
+    getComment()
+    if (response.data === true)
       setReview('');
   }
 
   return (
-    <div id="CommentModal" className={open ? 'openModal modal' : 'modal'}>
-      {open ? (
-        <section>
-          {/* 닫기 버튼 */}
-          <header>
-            <button className="close" onClick={close}>
-              &times;
-            </button>
-          </header>
-
+    <div>
           <div>
             {comments.map((comment, index) => (
               <CommentItem
@@ -91,6 +81,7 @@ function CommentsModal ( props: CommentsModal ) {
                 createdAt={comment.createdAt}
                 userId={comment.userId}
                 review_id={review_id}
+                nickname={comment.nickname}
               />
             ))}
           </div>
@@ -108,11 +99,9 @@ function CommentsModal ( props: CommentsModal ) {
                 }} />
             <button onClick={event => {postComment(event)}} className="m-3 mr-30"><FiSend/></button>
           </div>
-        </section>
-      ) : null}
     </div>
   );
 
 }
 
-export default CommentsModal;
+export default Comments;
